@@ -37,6 +37,8 @@ public class StarGateDbContext : DbContext
 	/// <param name="builder">The model to be configured</param>
 	protected override void OnModelCreating(ModelBuilder builder)
 	{
+		base.OnModelCreating(builder);
+
 		// Change delete behavior.
 		foreach (EntityType type in builder.Model.GetEntityTypes())
 		{
@@ -49,7 +51,22 @@ public class StarGateDbContext : DbContext
 				k.DeleteBehavior = DeleteBehavior.Restrict;
 		}
 
-		base.OnModelCreating(builder);
+		builder.Entity<Symbol>().HasData(
+			new Symbol
+			{
+				Id = 1,
+				Name = "losos",
+				ImageName = "losos.jpg",
+				ImageURI = "https://localhost:7230/images/losos.jpg"
+			},
+			new Symbol
+			{
+				Id = 2,
+				Name = "kot",
+				ImageName = "kot.jpg",
+				ImageURI = "https://localhost:7230/images/kot.jpg"
+			}
+			);
 	}
 
 	public StarGateDbContext(DbContextOptions<StarGateDbContext> options) : base(options) { }

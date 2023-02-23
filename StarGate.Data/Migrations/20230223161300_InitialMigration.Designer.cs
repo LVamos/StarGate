@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StarGate.Data;
 
@@ -10,9 +11,10 @@ using StarGate.Data;
 namespace StarGate.Data.Migrations
 {
     [DbContext(typeof(StarGateDbContext))]
-    partial class StarGateDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230223161300_InitialMigration")]
+    partial class InitialMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -151,22 +153,6 @@ namespace StarGate.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("Symbol");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            ImageName = "losos.jpg",
-                            ImageURI = "https://localhost:7230/images/losos.jpg",
-                            Name = "losos"
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            ImageName = "kot.jpg",
-                            ImageURI = "https://localhost:7230/images/kot.jpg",
-                            Name = "kot"
-                        });
                 });
 
             modelBuilder.Entity("StarGate.Data.Models.Team", b =>
