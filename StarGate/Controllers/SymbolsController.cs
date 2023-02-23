@@ -13,6 +13,21 @@ namespace StarGate.Controllers;
 public class SymbolsController : ControllerBase
 {
 	/// <summary>
+	///  Gets a symbol.
+	/// </summary>
+	/// <param name="id"></param>
+	/// <returns></returns>
+	[HttpGet("symbols/{id}")]
+	public SymbolDto? GetSymbol(uint id)
+	{
+		SymbolDto? symbol = _symbolManager.GetSymbol(id);
+
+		if (symbol is null)
+			return NotFound();
+		return Ok(symbol);
+	}
+
+	/// <summary>
 	///  Gets all symbols.
 	/// </summary>
 	/// <returns>ienumeration of symbols</returns>

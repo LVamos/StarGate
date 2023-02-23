@@ -13,6 +13,21 @@ namespace StarGate.Business.Managers;
 public class SymbolManager : ISymbolManager
 {
 	/// <summary>
+	///  Gets a symbol.
+	/// </summary>
+	/// <param name="id">Id of the requested symbol</param>
+	/// <returns>A data transformation object</returns>
+	public SymbolDto? GetSymbol(uint id)
+	{
+		Symbol? symbol = _symbolRepository.FindById(id);
+
+		if (symbol is null)
+			return null;
+
+		return mapper.Map<SymbolDto>(symbol);
+	}
+
+	/// <summary>
 	///  The symbol repository.
 	/// </summary>
 	private readonly ISymbolRepository _symbolRepository;
