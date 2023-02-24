@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 
+using StarGate.Business.Interfaces;
 using StarGate.Business.Models;
-using StarGate.Business.Models.Interfaces;
 using StarGate.Data.Interfaces;
 using StarGate.Data.Models;
 

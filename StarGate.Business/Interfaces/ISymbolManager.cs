@@ -1,4 +1,6 @@
-﻿namespace StarGate.Business.Models.Interfaces;
+﻿using StarGate.Business.Models;
+
+namespace StarGate.Business.Interfaces;
 
 /// <summary>
 ///  A symbol manager interface.

@@ -3,8 +3,8 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.OpenApi.Models;
 
 using StarGate.Business;
+using StarGate.Business.Interfaces;
 using StarGate.Business.Managers;
-using StarGate.Business.Models.Interfaces;
 using StarGate.Data;
 using StarGate.Data.Interfaces;
 using StarGate.Data.Repositories;
@@ -16,6 +16,7 @@ builder.Services.AddAutoMapper(typeof(AutomapperConfigurationProfile));
 
 // Repositories and managers
 builder.Services.AddScoped<ITeamRepository, TeamRepository>();
+builder.Services.AddScoped<ITeamManager, TeamManager>();
 
 builder.Services.AddScoped<ISymbolRepository, SymbolRepository>();
 builder.Services.AddScoped<ISymbolManager, SymbolManager>(); // Tento øádek jsme pøidali

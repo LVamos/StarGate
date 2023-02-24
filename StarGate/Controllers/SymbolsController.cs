@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
+using StarGate.Business.Interfaces;
 using StarGate.Business.Models;
-using StarGate.Business.Models.Interfaces;
 
 namespace StarGate.Controllers;
 
@@ -19,7 +19,7 @@ public class SymbolsController : ControllerBase
 	/// <param name="symbol">DTO object with modified symbol</param>
 	/// <returns>IActionResult</returns>
 	[HttpPut("symbols/{id}")]
-	public IActionResult EditPerson(uint id, [FromBody] SymbolDto symbol)
+	public IActionResult EditSymbol(uint id, [FromBody] SymbolDto symbol)
 	{
 		SymbolDto? updatedSymbol = _symbolManager.UpdateSymbol(id, symbol);
 
