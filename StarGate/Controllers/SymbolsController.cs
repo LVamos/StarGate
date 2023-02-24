@@ -13,6 +13,23 @@ namespace StarGate.Controllers;
 public class SymbolsController : ControllerBase
 {
 	/// <summary>
+	/// Updates a symbol.
+	/// </summary>
+	/// <param name="id">Id of the symbol to be updated</param>
+	/// <param name="symbol">DTO object with modified symbol</param>
+	/// <returns>IActionResult</returns>
+	[HttpPut("symbols/{id}")]
+	public IActionResult EditPerson(uint id, [FromBody] SymbolDto symbol)
+	{
+		SymbolDto? updatedSymbol = _symbolManager.UpdateSymbol(id, symbol);
+
+		if (updatedSymbol is null)
+			return NotFound();
+
+		return Ok(updatedSymbol);
+	}
+
+	/// <summary>
 	/// Adds a symbol.
 	/// </summary>
 	/// <param name="name">Name of the symbol</param>

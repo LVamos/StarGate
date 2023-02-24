@@ -31,4 +31,13 @@ public interface ISymbolManager
 	/// <param name="id">Id of the requested symbol</param>
 	/// <returns>A data transformation object</returns>
 	SymbolDto? GetSymbol(uint id);
+
+
+	/// <summary>
+	/// Updates a symbol.
+	/// </summary>
+	/// <param name="id">Id of the symbol to be updated</param>
+	/// <param name="symbolDto">DTO object with modified symbol</param>
+	/// <returns>The updated symbol or null if the specified symbol wasn't found</returns>
+	SymbolDto? UpdateSymbol(uint id, SymbolDto symbolDto);
 }

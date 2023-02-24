@@ -13,6 +13,24 @@ namespace StarGate.Business.Managers;
 public class SymbolManager : ISymbolManager
 {
 	/// <summary>
+	/// Updates a symbol.
+	/// </summary>
+	/// <param name="id">Id of the symbol to be updated</param>
+	/// <param name="symbolDto">DTO object with modified symbol</param>
+	/// <returns>The updated symbol or null if the specified symbol wasn't found</returns>
+	public SymbolDto? UpdateSymbol(uint id, SymbolDto symbolDto)
+	{
+		if (!_symbolRepository.ExistsWithId(id))
+			return null;
+
+		Symbol symbol = _mapper.Map<Symbol>(symbolDto);
+		symbol.Id = id;
+		Symbol updatedSymbol = _symbolRepository.Update(symbol);
+
+		return _mapper.Map<SymbolDto>(updatedSymbol);
+	}
+
+	/// <summary>
 	///  Adds a symbol.
 	/// </summary>
 	/// <param name="symbolDto">The symbol to be added as an DTO object</param>
