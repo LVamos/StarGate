@@ -6,6 +6,13 @@
 public interface ISymbolManager
 {
 	/// <summary>
+	/// Deletes a symbol.
+	/// </summary>
+	/// <param name="id">Id of the symbol to be deleted</param>
+	/// <returns>True if the specified symbol was deleted</returns>
+	bool DeleteSymbol(uint id);
+
+	/// <summary>
 	///  Returns all symbols.
 	/// </summary>
 	/// <returns>A list of symbols</returns>

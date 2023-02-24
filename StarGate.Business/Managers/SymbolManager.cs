@@ -13,6 +13,21 @@ namespace StarGate.Business.Managers;
 public class SymbolManager : ISymbolManager
 {
 	/// <summary>
+	/// Deletes a symbol.
+	/// </summary>
+	/// <param name="id">Id of the symbol to be deleted</param>
+	/// <returns>True if the specified symbol was deleted</returns>
+	public bool DeleteSymbol(uint id)
+	{
+		bool found = _symbolRepository.ExistsWithId(id);
+
+		if (found)
+			_symbolRepository.Delete(id);
+
+		return found;
+	}
+
+	/// <summary>
 	///  Gets a symbol.
 	/// </summary>
 	/// <param name="id">Id of the requested symbol</param>

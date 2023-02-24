@@ -13,10 +13,24 @@ namespace StarGate.Controllers;
 public class SymbolsController : ControllerBase
 {
 	/// <summary>
+	///  Deletes a symbol.
+	/// </summary>
+	/// <param name="id">Id of the symbol to be deleted</param>
+	/// <returns>IActionResult</returns>
+	[HttpDelete("symbols/{id}")]
+	public IActionResult DeleteSymbol(uint id)
+	{
+		if (_symbolManager.DeleteSymbol(id))
+			return Ok();
+
+		return NotFound();
+	}
+
+	/// <summary>
 	///  Gets a symbol.
 	/// </summary>
 	/// <param name="id"></param>
-	/// <returns></returns>
+	/// <returns>IActionResult</returns>
 	[HttpGet("symbols/{id}")]
 	public IActionResult GetSymbol(uint id)
 	{
