@@ -13,6 +13,40 @@ namespace StarGate.Controllers;
 public class SymbolsController : ControllerBase
 {
 	/// <summary>
+	/// Adds a symbol.
+	/// </summary>
+	/// <param name="name">Name of the symbol</param>
+	/// <param name="file">Picture of the symbol</param>
+	/// <returns>IActionResult</returns>
+	[HttpPost("symbols")]
+	public IActionResult AddSymbol(string name, IFormFile file)
+	{
+		// Read the file.
+		byte[] data = null;
+		try
+		{
+			using var binaryReader = new BinaryReader(file.OpenReadStream());
+			data = binaryReader.ReadBytes((int)file.Length);
+		}
+		catch
+		{
+			return StatusCode(500);
+		}
+
+		// Store the symbol.
+		SymbolDto symbol = new SymbolDto
+		{
+			Id = default,
+			Name = name,
+			Image = data
+		};
+
+		SymbolDto? newSymbol = _symbolManager.AddSymbol(symbol);
+
+		return CreatedAtAction(nameof(GetSymbol), new { Id = newSymbol.Id }, newSymbol);
+	}
+
+	/// <summary>
 	///  Deletes a symbol.
 	/// </summary>
 	/// <param name="id">Id of the symbol to be deleted</param>

@@ -26,13 +26,9 @@ public class Symbol
 	public string Name { get; set; } = "";
 
 	/// <summary>
-	/// Name of the image file stored in Images folder
+	/// Picture of the symbol.
 	/// </summary>
 	[Required]
-	public string ImageName { get; set; } = "";
-
-	[Required]
-	[StringLength(255)]
-	public string ImageURI { get; set; }
+	public byte[] Image { get; set; }
 }
 

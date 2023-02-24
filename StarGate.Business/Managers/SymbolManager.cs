@@ -13,6 +13,20 @@ namespace StarGate.Business.Managers;
 public class SymbolManager : ISymbolManager
 {
 	/// <summary>
+	///  Adds a symbol.
+	/// </summary>
+	/// <param name="symbolDto">The symbol to be added as an DTO object</param>
+	/// <returns>Newly added symbol as an DTO object</returns>
+	public SymbolDto AddSymbol(SymbolDto symbolDto)
+	{
+		Symbol symbol = _mapper.Map<Symbol>(symbolDto);
+		symbol.Id = default; // Set to zero so that the primary key can be generated.
+		Symbol newSymbol = _symbolRepository.Insert(symbol);
+
+		return _mapper.Map<SymbolDto>(newSymbol);
+	}
+
+	/// <summary>
 	/// Deletes a symbol.
 	/// </summary>
 	/// <param name="id">Id of the symbol to be deleted</param>

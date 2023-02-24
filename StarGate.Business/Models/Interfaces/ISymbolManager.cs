@@ -6,6 +6,13 @@
 public interface ISymbolManager
 {
 	/// <summary>
+	///  Adds a symbol.
+	/// </summary>
+	/// <param name="symbolDto">The symbol to be added as an DTO object</param>
+	/// <returns>Newly added symbol as an DTO object</returns>
+	SymbolDto AddSymbol(SymbolDto symbolDto);
+
+	/// <summary>
 	/// Deletes a symbol.
 	/// </summary>
 	/// <param name="id">Id of the symbol to be deleted</param>

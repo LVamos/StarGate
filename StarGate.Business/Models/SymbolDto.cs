@@ -16,13 +16,7 @@ public class SymbolDto
 	public string Name { get; set; }
 
 	/// <summary>
-	/// Name of the image file stored in Images folder
+	/// Picture of the symbol.
 	/// </summary>
-	public string ImageName { get; set; }
-
-	/// <summary>
-	/// URI of the image file
-	/// </summary>
-	public string ImageURI { get; set; }
+	public byte[] Image { get; set; }
 }
-

@@ -50,23 +50,6 @@ public class StarGateDbContext : DbContext
 			foreach (ForeignKey k in keys)
 				k.DeleteBehavior = DeleteBehavior.Restrict;
 		}
-
-		builder.Entity<Symbol>().HasData(
-			new Symbol
-			{
-				Id = 1,
-				Name = "losos",
-				ImageName = "losos.jpg",
-				ImageURI = "https://localhost:7230/images/losos.jpg"
-			},
-			new Symbol
-			{
-				Id = 2,
-				Name = "kot",
-				ImageName = "kot.jpg",
-				ImageURI = "https://localhost:7230/images/kot.jpg"
-			}
-			);
 	}
 
 	public StarGateDbContext(DbContextOptions<StarGateDbContext> options) : base(options) { }
