@@ -18,7 +18,7 @@ public class SymbolsController : ControllerBase
 	/// <param name="id"></param>
 	/// <returns></returns>
 	[HttpGet("symbols/{id}")]
-	public SymbolDto? GetSymbol(uint id)
+	public IActionResult GetSymbol(uint id)
 	{
 		SymbolDto? symbol = _symbolManager.GetSymbol(id);
 

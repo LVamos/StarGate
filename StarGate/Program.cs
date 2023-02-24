@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.OpenApi.Models;
 
 using StarGate.Business;
 using StarGate.Business.Managers;
@@ -30,10 +31,28 @@ builder.Services.AddDbContext<StarGateDbContext>(
 	o => o.UseSqlServer(connectionString)
 	.UseLazyLoadingProxies()
 	.ConfigureWarnings(x => x.Ignore(CoreEventId.LazyLoadOnDisposedContextWarning)));
+
+// swagger
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(
+	o =>
+	o.SwaggerDoc("stargate", new OpenApiInfo
+	{
+		Version = "v1",
+		Title = "Hvìzdná brána",
+		Description = "Webové API pro ovládání hvìzdné brány"
+	}));
+
 builder.Services.AddControllers()
 	.AddJsonOptions(o => o.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 
 WebApplication app = builder.Build();
+
+app.UseSwagger();
+app.UseSwaggerUI(o =>
+{
+	o.SwaggerEndpoint("stargate/swagger.json", "Hvìzdná brána - verze 1");
+});
 
 app.MapControllers();
 app.MapGet("/", () => "Hello World!");

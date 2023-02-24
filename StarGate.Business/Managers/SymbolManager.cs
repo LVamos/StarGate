@@ -24,7 +24,7 @@ public class SymbolManager : ISymbolManager
 		if (symbol is null)
 			return null;
 
-		return mapper.Map<SymbolDto>(symbol);
+		return _mapper.Map<SymbolDto>(symbol);
 	}
 
 	/// <summary>
