@@ -57,7 +57,24 @@ public class AddressManager : IAddressManager
 	{
 		Address address = _mapper.Map<Address>(addressDto);
 		address.Id = default; // Set to zero so that the primary key can be generated.
-		Address newAddress = _addressRepository.Insert(address);
+        
+		address.Symbol1Id = address.Symbol1.Id;
+		address.Symbol2Id = address.Symbol2.Id;
+        address.Symbol3Id = address.Symbol3.Id;
+        address.Symbol4Id = address.Symbol4.Id;
+        address.Symbol5Id = address.Symbol5.Id;
+        address.Symbol6Id = address.Symbol6.Id;
+        address.Symbol7Id = address.Symbol7.Id;
+
+        address.Symbol1 = null!;
+        address.Symbol2 = null!;
+        address.Symbol3 = null!;
+        address.Symbol4 = null!;
+        address.Symbol5 = null!;
+        address.Symbol6 = null!;
+        address.Symbol7 = null!;
+
+        Address newAddress = _addressRepository.Insert(address);
 
 		return _mapper.Map<AddressDto>(newAddress);
 	}

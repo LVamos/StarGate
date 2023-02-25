@@ -72,8 +72,8 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
 	public virtual TEntity Insert(TEntity entity)
 	{
 		EntityEntry<TEntity> entry = _dbSet.Add(entity);
-
-		return entry.Entity;
+        _dbContext.SaveChanges();
+        return entry.Entity;
 	}
 
 	/// <summary>
