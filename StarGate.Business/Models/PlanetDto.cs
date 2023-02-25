@@ -10,7 +10,7 @@ public class PlanetDto
 	/// <summary>
 	/// Id of the planet
 	/// </summary>
-	public int Id { get; set; }
+	public uint Id { get; set; }
 
 	/// <summary>
 	/// Specifies if the planet has already been explored by a Stargate team.

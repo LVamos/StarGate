@@ -33,7 +33,7 @@ public class TeamsController : ControllerBase
 	/// Adds a team.
 	/// </summary>
 	/// <param name="name">Name of the team</param>
-	/// <param name="file">Picture of the team</param>
+	/// <param name="members">Number of members in the team</param>
 	/// <returns>IActionResult</returns>
 	[HttpPost("teams")]
 	public IActionResult AddTeam(string name, uint members = 1)

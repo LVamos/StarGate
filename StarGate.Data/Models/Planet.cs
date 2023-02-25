@@ -23,7 +23,7 @@ public class Planet
 	/// </summary>
 	[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 	[Key()]
-	public int Id { get; set; }
+	public uint Id { get; set; }
 
 	/// <summary>
 	/// Specifies if the planet has already been explored by a Stargate team.

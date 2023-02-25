@@ -21,7 +21,7 @@ public class Address
 	/// </summary>
 	[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 	[System.ComponentModel.DataAnnotations.Key()]
-	public int Id { get; set; }
+	public uint Id { get; set; }
 
 	/// <summary>
 	/// A foreign key.

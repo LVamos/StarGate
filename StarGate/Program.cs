@@ -21,17 +21,25 @@ builder.Services.AddScoped<ITeamManager, TeamManager>();
 builder.Services.AddScoped<ISymbolRepository, SymbolRepository>();
 builder.Services.AddScoped<ISymbolManager, SymbolManager>(); // Tento øádek jsme pøidali
 
-
 builder.Services.AddScoped<IPlanetRepository, PlanetRepository>();
+builder.Services.AddScoped<IPlanetManager, PlanetManager>();
+
 builder.Services.AddScoped<IAddressRepository, AddressRepository>();
+builder.Services.AddScoped<IAddressManager, AddressManager>();
+
+
 builder.Services.AddScoped<IRequestRepository, RequestRepository>();
 
 
 string connectionString = builder.Configuration.GetConnectionString("LocalStargateConnection");
 builder.Services.AddDbContext<StarGateDbContext>(
-	o => o.UseSqlServer(connectionString)
-	.UseLazyLoadingProxies()
-	.ConfigureWarnings(x => x.Ignore(CoreEventId.LazyLoadOnDisposedContextWarning)));
+	o =>
+	{
+		o.UseSqlServer(connectionString)
+		.UseLazyLoadingProxies()
+		.ConfigureWarnings(x => x.Ignore(CoreEventId.LazyLoadOnDisposedContextWarning));
+		o.EnableSensitiveDataLogging();
+	});
 
 // swagger
 builder.Services.AddEndpointsApiExplorer();

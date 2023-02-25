@@ -74,7 +74,7 @@ namespace StarGate.Data.Migrations
                     b.HasIndex("Symbol7Id")
                         .IsUnique();
 
-                    b.ToTable("Address");
+                    b.ToTable("Address", (string)null);
                 });
 
             modelBuilder.Entity("StarGate.Data.Models.Planet", b =>
@@ -108,7 +108,7 @@ namespace StarGate.Data.Migrations
 
                     b.HasIndex("TeamId");
 
-                    b.ToTable("Planet");
+                    b.ToTable("Planet", (string)null);
                 });
 
             modelBuilder.Entity("StarGate.Data.Models.Request", b =>
@@ -121,7 +121,7 @@ namespace StarGate.Data.Migrations
 
                     b.HasIndex("PlanetId");
 
-                    b.ToTable("Request");
+                    b.ToTable("Request", (string)null);
                 });
 
             modelBuilder.Entity("StarGate.Data.Models.Symbol", b =>
@@ -146,7 +146,7 @@ namespace StarGate.Data.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Symbol");
+                    b.ToTable("Symbol", (string)null);
                 });
 
             modelBuilder.Entity("StarGate.Data.Models.Team", b =>
@@ -170,7 +170,7 @@ namespace StarGate.Data.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Team");
+                    b.ToTable("Team", (string)null);
                 });
 
             modelBuilder.Entity("StarGate.Data.Models.Address", b =>

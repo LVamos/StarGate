@@ -36,7 +36,12 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
 	/// </summary>
 	/// <param name="id">Id of the wanted record</param>
 	/// <returns>The record or null</returns>
-	public TEntity? FindById(uint id) => _dbSet.Find(id);
+	public TEntity? FindById(uint id)
+	{
+		TEntity? entity = _dbSet.Find(id);
+
+		return entity;
+	}
 
 	/// <summary>
 	/// Checks if a record with the given id exists in the repository.
@@ -64,12 +69,11 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
 	/// </summary>
 	/// <param name="entity">The record to be inserted</param>
 	/// <returns>The inserted record</returns>
-	public TEntity Insert(TEntity entity)
+	public virtual TEntity Insert(TEntity entity)
 	{
-		EntityEntry<TEntity> entityEntry = _dbSet.Add(entity);
-		_dbContext.SaveChanges();
+		EntityEntry<TEntity> entry = _dbSet.Add(entity);
 
-		return entityEntry.Entity;
+		return entry.Entity;
 	}
 
 	/// <summary>
