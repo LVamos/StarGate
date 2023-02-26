@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -12,11 +13,10 @@ namespace StarGate.Data.Migrations
                 name: "Symbol",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    ImageName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ImageURI = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false)
+                    Image = table.Column<byte[]>(type: "varbinary(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -27,7 +27,7 @@ namespace StarGate.Data.Migrations
                 name: "Team",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     Members = table.Column<long>(type: "bigint", nullable: false)
@@ -43,13 +43,13 @@ namespace StarGate.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Symbol1Id = table.Column<long>(type: "bigint", nullable: false),
-                    Symbol2Id = table.Column<long>(type: "bigint", nullable: false),
-                    Symbol3Id = table.Column<long>(type: "bigint", nullable: false),
-                    Symbol4Id = table.Column<long>(type: "bigint", nullable: false),
-                    Symbol5Id = table.Column<long>(type: "bigint", nullable: false),
-                    Symbol6Id = table.Column<long>(type: "bigint", nullable: false),
-                    Symbol7Id = table.Column<long>(type: "bigint", nullable: false)
+                    Symbol1Id = table.Column<int>(type: "int", nullable: false),
+                    Symbol2Id = table.Column<int>(type: "int", nullable: false),
+                    Symbol3Id = table.Column<int>(type: "int", nullable: false),
+                    Symbol4Id = table.Column<int>(type: "int", nullable: false),
+                    Symbol5Id = table.Column<int>(type: "int", nullable: false),
+                    Symbol6Id = table.Column<int>(type: "int", nullable: false),
+                    Symbol7Id = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -105,7 +105,7 @@ namespace StarGate.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Explored = table.Column<bool>(type: "bit", nullable: false),
-                    TeamId = table.Column<long>(type: "bigint", nullable: false),
+                    TeamId = table.Column<int>(type: "int", nullable: false),
                     Safety = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     AddressId = table.Column<int>(type: "int", nullable: false)

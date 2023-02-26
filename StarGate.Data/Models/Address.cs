@@ -1,19 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StarGate.Data.Models;
 
 /// <summary>
 /// An entity representing a star gate address consisting of 7 symbols.
 /// </summary>
-[Index(nameof(Address.Symbol1Id), IsUnique = true)]
-[Index(nameof(Address.Symbol2Id), IsUnique = true)]
-[Index(nameof(Address.Symbol3Id), IsUnique = true)]
-[Index(nameof(Address.Symbol4Id), IsUnique = true)]
-[Index(nameof(Address.Symbol5Id), IsUnique = true)]
-[Index(nameof(Address.Symbol6Id), IsUnique = true)]
-[Index(nameof(Address.Symbol7Id), IsUnique = true)]
+//[Index("Symbol1Id", "Symbol2Id", "Symbol3Id", "Symbol4Id", "Symbol5Id", "Symbol6Id", "Symbol7Id", IsUnique = true, Name = "My_Unique_Index")]
 public class Address
 {
 	/// <summary>
@@ -26,7 +18,7 @@ public class Address
 	/// <summary>
 	/// A foreign key.
 	/// </summary>
-	public uint Symbol1Id { get; set; }
+	public int Symbol1Id { get; set; }
 
 	/// <summary>
 	/// 1st symbol of the address
@@ -36,7 +28,7 @@ public class Address
 	/// <summary>
 	/// A foreign key.
 	/// </summary>
-	public uint Symbol2Id { get; set; }
+	public int Symbol2Id { get; set; }
 
 	/// <summary>
 	/// 2nd symbol of the address
@@ -46,7 +38,7 @@ public class Address
 	/// <summary>
 	/// A foreign key.
 	/// </summary>
-	public uint Symbol3Id { get; set; }
+	public int Symbol3Id { get; set; }
 
 	/// <summary>
 	/// 3rd symbol of the address
@@ -56,7 +48,7 @@ public class Address
 	/// <summary>
 	/// A foreign key.
 	/// </summary>
-	public uint Symbol4Id { get; set; }
+	public int Symbol4Id { get; set; }
 
 	/// <summary>
 	/// 4th symbol of the address
@@ -66,7 +58,7 @@ public class Address
 	/// <summary>
 	/// A foreign key.
 	/// </summary>
-	public uint Symbol5Id { get; set; }
+	public int Symbol5Id { get; set; }
 
 	/// <summary>
 	/// 5th symbol of the address
@@ -76,7 +68,7 @@ public class Address
 	/// <summary>
 	/// A foreign key.
 	/// </summary>
-	public uint Symbol6Id { get; set; }
+	public int Symbol6Id { get; set; }
 
 	/// <summary>
 	/// 6th symbol of the address
@@ -86,7 +78,7 @@ public class Address
 	/// <summary>
 	/// A foreign key.
 	/// </summary>
-	public uint Symbol7Id { get; set; }
+	public int Symbol7Id { get; set; }
 
 	/// <summary>
 	/// 7th symbol of the address

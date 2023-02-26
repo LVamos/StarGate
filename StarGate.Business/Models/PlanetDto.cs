@@ -1,5 +1,7 @@
 ﻿using StarGate.Data.Models;
 
+using System.ComponentModel.DataAnnotations;
+
 namespace StarGate.Business.Models;
 
 /// <summary>
@@ -17,6 +19,8 @@ public class PlanetDto
 	/// </summary>
 	public bool Explored { get; set; }
 
+	public int TeamId { get; set; }
+
 	/// <summary>
 	/// A team that has explored the planet.
 	/// </summary>
@@ -27,10 +31,17 @@ public class PlanetDto
 	/// </summary>
 	public PlanetSafety Safety { get; set; } = PlanetSafety.Neutral;
 
-	/// <summary>
+	/// <summary>	/// <summary>
+	/// Unique code of the planet.
+	/// </summary>
+	[StringLength(10)]
+	public string Code { get; set; } = "";
+
 	/// Name of the planet.
 	/// </summary>
 	public string Name { get; set; }
+
+	public int AddressId { get; set; }
 
 	/// <summary>
 	/// Address of the planet.

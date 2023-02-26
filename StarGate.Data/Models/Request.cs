@@ -25,6 +25,8 @@ public class Request
 	[Required]
 	public RequestType Type { get; set; }
 
+	public int PlanetId { get; set; }
+
 	/// <summary>
 	/// A planet to be explored.
 	/// </summary>

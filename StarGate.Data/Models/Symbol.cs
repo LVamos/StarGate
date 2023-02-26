@@ -8,6 +8,7 @@ namespace StarGate.Data.Models;
 /// <summary>
 /// Describes a star gate symbol.
 /// </summary>
+[Index(nameof(Symbol.Code), IsUnique = true)]
 [Index(nameof(Symbol.Name), IsUnique = true)]
 public class Symbol
 {
@@ -16,7 +17,14 @@ public class Symbol
 	/// </summary>
 	[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 	[Key()]
-	public uint Id { get; set; }
+	public int Id { get; set; }
+
+	/// <summary>
+	/// Unique code of the symbol
+	/// </summary>
+	[Required]
+	[StringLength(10)]
+	public string Code { get; set; }
 
 	/// <summary>
 	/// Unique name of the symbol

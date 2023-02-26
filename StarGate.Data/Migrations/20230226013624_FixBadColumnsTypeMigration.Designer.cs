@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StarGate.Data;
 
@@ -11,9 +12,10 @@ using StarGate.Data;
 namespace StarGate.Data.Migrations
 {
     [DbContext(typeof(StarGateDbContext))]
-    partial class StarGateDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230226013624_FixBadColumnsTypeMigration")]
+    partial class FixBadColumnsTypeMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,8 +55,6 @@ namespace StarGate.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Symbol1Id");
-
                     b.HasIndex("Symbol2Id");
 
                     b.HasIndex("Symbol3Id");
@@ -66,6 +66,9 @@ namespace StarGate.Data.Migrations
                     b.HasIndex("Symbol6Id");
 
                     b.HasIndex("Symbol7Id");
+
+                    b.HasIndex(new[] { "Symbol1Id", "Symbol2Id", "Symbol3Id", "Symbol4Id", "Symbol5Id", "Symbol6Id", "Symbol7Id" }, "My_Unique_Index")
+                        .IsUnique();
 
                     b.ToTable("Address");
                 });
@@ -80,11 +83,6 @@ namespace StarGate.Data.Migrations
 
                     b.Property<int>("AddressId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
 
                     b.Property<bool>("Explored")
                         .HasColumnType("bit");
@@ -103,9 +101,6 @@ namespace StarGate.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AddressId");
-
-                    b.HasIndex("Code")
-                        .IsUnique();
 
                     b.HasIndex("TeamId");
 
@@ -133,11 +128,6 @@ namespace StarGate.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
                     b.Property<byte[]>("Image")
                         .IsRequired()
                         .HasColumnType("varbinary(max)");
@@ -148,9 +138,6 @@ namespace StarGate.Data.Migrations
                         .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Code")
-                        .IsUnique();
 
                     b.HasIndex("Name")
                         .IsUnique();
@@ -166,10 +153,6 @@ namespace StarGate.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int>("Members")
                         .HasColumnType("int");
 
@@ -179,9 +162,6 @@ namespace StarGate.Data.Migrations
                         .HasColumnType("nvarchar(30)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Code")
-                        .IsUnique();
 
                     b.HasIndex("Name")
                         .IsUnique();

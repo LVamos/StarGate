@@ -19,7 +19,7 @@ public class TeamsController : ControllerBase
 	/// <param name="team">DTO object with modified team</param>
 	/// <returns>IActionResult</returns>
 	[HttpPut("teams/{id}")]
-	public IActionResult EditTeam(uint id, [FromBody] TeamDto team)
+	public IActionResult EditTeam(int id, [FromBody] TeamDto team)
 	{
 		TeamDto? updatedTeam = _teamManager.UpdateTeam(id, team);
 
@@ -32,15 +32,16 @@ public class TeamsController : ControllerBase
 	/// <summary>
 	/// Adds a team.
 	/// </summary>
+	/// <param name="code">A short string identifying the team</param>
 	/// <param name="name">Name of the team</param>
 	/// <param name="file">Picture of the team</param>
 	/// <returns>IActionResult</returns>
 	[HttpPost("teams")]
-	public IActionResult AddTeam(string name, uint members = 1)
+	public IActionResult AddTeam(string code, string name, int members = 1)
 	{
 		TeamDto team = new TeamDto
 		{
-			Id = default,
+			Code = code,
 			Name = name,
 			Members = members
 		};
@@ -56,7 +57,7 @@ public class TeamsController : ControllerBase
 	/// <param name="id">Id of the team to be deleted</param>
 	/// <returns>IActionResult</returns>
 	[HttpDelete("teams/{id}")]
-	public IActionResult DeleteTeam(uint id) => _teamManager.DeleteTeam(id) ? Ok() : NotFound();
+	public IActionResult DeleteTeam(int id) => _teamManager.DeleteTeam(id) ? Ok() : NotFound();
 
 	/// <summary>
 	///  Gets a team.
@@ -64,7 +65,7 @@ public class TeamsController : ControllerBase
 	/// <param name="id"></param>
 	/// <returns>IActionResult</returns>
 	[HttpGet("teams/{id}")]
-	public IActionResult GetTeam(uint id)
+	public IActionResult GetTeam(int id)
 	{
 		TeamDto? team = _teamManager.GetTeam(id);
 
