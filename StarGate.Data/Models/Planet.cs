@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StarGate.Data.Models;
@@ -16,6 +18,7 @@ public enum PlanetSafety
 /// <summary>
 /// Describes the Planet entity.
 /// </summary>
+[Index(nameof(Planet.Code), IsUnique = true)]
 public class Planet
 {
 	/// <summary>
@@ -31,6 +34,7 @@ public class Planet
 	[Required]
 	public bool Explored { get; set; }
 
+	public int TeamId { get; set; }
 	/// <summary>
 	/// A team that has explored the planet.
 	/// </summary>
@@ -42,10 +46,20 @@ public class Planet
 	public PlanetSafety Safety { get; set; } = PlanetSafety.Neutral;
 
 	/// <summary>
+	/// Unique code of the planet.
+	/// </summary>
+
+	[Required]
+	[StringLength(10)]
+	public string Code { get; set; } = "";
+
+	/// <summary>
 	/// Name of the planet.
 	/// </summary>
 	[StringLength(30)]
 	public string Name { get; set; } = "";
+
+	public int AddressId { get; set; }
 
 	/// <summary>
 	/// Address of a star gate on the planet.

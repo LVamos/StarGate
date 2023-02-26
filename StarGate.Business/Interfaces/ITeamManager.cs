@@ -19,7 +19,7 @@ public interface ITeamManager
 	/// </summary>
 	/// <param name="id">Id of the team to be deleted</param>
 	/// <returns>True if the specified team was deleted</returns>
-	bool DeleteTeam(uint id);
+	bool DeleteTeam(int id);
 
 	/// <summary>
 	///  Returns all teams.
@@ -32,7 +32,14 @@ public interface ITeamManager
 	/// </summary>
 	/// <param name="id">Id of the requested team</param>
 	/// <returns>A data transformation object</returns>
-	TeamDto? GetTeam(uint id);
+	TeamDto? GetTeam(int id);
+
+	/// <summary>
+	/// Finds a team by its code.
+	/// </summary>
+	/// <param name="code">A code string identifying the team</param>
+	/// <returns>DTO object of the wanted team or null</returns>
+	TeamDto? GetTeamByCode(string code);
 
 
 	/// <summary>
@@ -41,5 +48,5 @@ public interface ITeamManager
 	/// <param name="id">Id of the team to be updated</param>
 	/// <param name="teamDto">DTO object with modified team</param>
 	/// <returns>The updated team or null if the specified team wasn't found</returns>
-	TeamDto? UpdateTeam(uint id, TeamDto teamDto);
+	TeamDto? UpdateTeam(int id, TeamDto teamDto);
 }

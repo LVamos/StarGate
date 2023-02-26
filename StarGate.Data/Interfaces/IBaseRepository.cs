@@ -17,7 +17,7 @@ public interface IBaseRepository<TEntity> where TEntity : class
 	/// </summary>
 	/// <param name="id">Id of the wanted record</param>
 	/// <returns>The record or null</returns>
-	TEntity? FindById(uint id);
+	TEntity? FindById(int id);
 
 	/// <summary>
 	/// Inserts a new record into the repository.
@@ -37,12 +37,12 @@ public interface IBaseRepository<TEntity> where TEntity : class
 	/// Deletes a record from the repository.
 	/// </summary>
 	/// <param name="id">Id of the record to be deleted</param>
-	void Delete(uint id);
+	void Delete(int id);
 
 	/// <summary>
 	/// Checks if a record with the given id exists in the repository.
 	/// </summary>
 	/// <param name="id">Id of the record</param>
 	/// <returns>True if the specified record exists in the repository</returns>
-	bool ExistsWithId(uint id);
+	bool ExistsWithId(int id);
 }

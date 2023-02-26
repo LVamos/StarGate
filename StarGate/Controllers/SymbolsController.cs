@@ -19,7 +19,7 @@ public class SymbolsController : ControllerBase
 	/// <param name="symbol">DTO object with modified symbol</param>
 	/// <returns>IActionResult</returns>
 	[HttpPut("symbols/{id}")]
-	public IActionResult EditSymbol(uint id, [FromBody] SymbolDto symbol)
+	public IActionResult EditSymbol(int id, [FromBody] SymbolDto symbol)
 	{
 		SymbolDto? updatedSymbol = _symbolManager.UpdateSymbol(id, symbol);
 
@@ -32,35 +32,19 @@ public class SymbolsController : ControllerBase
 	/// <summary>
 	/// Adds a symbol.
 	/// </summary>
+	/// <param name="code">A short string identifying the symbol</param>
 	/// <param name="name">Name of the symbol</param>
 	/// <param name="file">Picture of the symbol</param>
 	/// <returns>IActionResult</returns>
 	[HttpPost("symbols")]
-	public IActionResult AddSymbol(string name, IFormFile file)
+	public IActionResult AddSymbol(string code, string name, IFormFile file)
 	{
-		// Read the file.
-		byte[] data = null;
-		try
-		{
-			using var binaryReader = new BinaryReader(file.OpenReadStream());
-			data = binaryReader.ReadBytes((int)file.Length);
-		}
-		catch
-		{
-			return StatusCode(500);
-		}
-
 		// Store the symbol.
-		SymbolDto symbol = new SymbolDto
-		{
-			Id = default,
-			Name = name,
-			Image = data
-		};
+		SymbolDto? symbol = _symbolManager.AddSymbol(code, name, file);
+		if (symbol is null)
+			return Problem(title: "Error", detail: "The symbol could not be added.", statusCode: 500);
 
-		SymbolDto? newSymbol = _symbolManager.AddSymbol(symbol);
-
-		return CreatedAtAction(nameof(GetSymbol), new { Id = newSymbol.Id }, newSymbol);
+		return CreatedAtAction(nameof(GetSymbol), new { Id = symbol.Id }, symbol);
 	}
 
 	/// <summary>
@@ -69,7 +53,7 @@ public class SymbolsController : ControllerBase
 	/// <param name="id">Id of the symbol to be deleted</param>
 	/// <returns>IActionResult</returns>
 	[HttpDelete("symbols/{id}")]
-	public IActionResult DeleteSymbol(uint id)
+	public IActionResult DeleteSymbol(int id)
 	{
 		if (_symbolManager.DeleteSymbol(id))
 			return Ok();
@@ -83,7 +67,7 @@ public class SymbolsController : ControllerBase
 	/// <param name="id"></param>
 	/// <returns>IActionResult</returns>
 	[HttpGet("symbols/{id}")]
-	public IActionResult GetSymbol(uint id)
+	public IActionResult GetSymbol(int id)
 	{
 		SymbolDto? symbol = _symbolManager.GetSymbol(id);
 

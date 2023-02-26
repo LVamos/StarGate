@@ -13,12 +13,28 @@ namespace StarGate.Business.Managers;
 public class TeamManager : ITeamManager
 {
 	/// <summary>
+	/// Finds a team by its code.
+	/// </summary>
+	/// <param name="code">A code string identifying the team</param>
+	/// <returns>DTO object of the wanted team or null</returns>
+	public TeamDto? GetTeamByCode(string code)
+	{
+		Team? team = _teamRepository.FindByCode(code);
+
+		if (team is null)
+			return null;
+
+		return _mapper.Map<TeamDto>(team);
+	}
+
+
+	/// <summary>
 	/// Updates a team.
 	/// </summary>
 	/// <param name="id">Id of the team to be updated</param>
 	/// <param name="teamDto">DTO object with modified team</param>
 	/// <returns>The updated team or null if the specified team wasn't found</returns>
-	public TeamDto? UpdateTeam(uint id, TeamDto teamDto)
+	public TeamDto? UpdateTeam(int id, TeamDto teamDto)
 	{
 		if (!_teamRepository.ExistsWithId(id))
 			return null;
@@ -49,7 +65,7 @@ public class TeamManager : ITeamManager
 	/// </summary>
 	/// <param name="id">Id of the team to be deleted</param>
 	/// <returns>True if the specified team was deleted</returns>
-	public bool DeleteTeam(uint id)
+	public bool DeleteTeam(int id)
 	{
 		bool found = _teamRepository.ExistsWithId(id);
 
@@ -64,7 +80,7 @@ public class TeamManager : ITeamManager
 	/// </summary>
 	/// <param name="id">Id of the requested team</param>
 	/// <returns>A data transformation object</returns>
-	public TeamDto? GetTeam(uint id)
+	public TeamDto? GetTeam(int id)
 	{
 		Team? team = _teamRepository.FindById(id);
 

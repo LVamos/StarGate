@@ -8,7 +8,12 @@ public class SymbolDto
 	/// <summary>
 	/// Id of the symbol
 	/// </summary>
-	public uint Id { get; set; }
+	public int Id { get; set; }
+
+	/// <summary>
+	/// Code of the symbol
+	/// </summary>
+	public string Code { get; set; }
 
 	/// <summary>
 	/// Name of the symbol

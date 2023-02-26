@@ -1,4 +1,6 @@
-﻿using StarGate.Business.Models;
+﻿using Microsoft.AspNetCore.Http;
+
+using StarGate.Business.Models;
 
 namespace StarGate.Business.Interfaces;
 
@@ -14,12 +16,22 @@ public interface ISymbolManager
 	/// <returns>Newly added symbol as an DTO object</returns>
 	SymbolDto AddSymbol(SymbolDto symbolDto);
 
+
+	/// <summary>
+	/// Adds a symbol.
+	/// </summary>
+	/// <param name="code">A short string identifying the symbol</param>
+	/// <param name="name">Name of the symbol</param>
+	/// <param name="image">Byte array with image of the symbol</param>
+	/// <returns>A DTO object representing the symbol</returns>
+	SymbolDto? AddSymbol(string code, string name, IFormFile imageFile);
+
 	/// <summary>
 	/// Deletes a symbol.
 	/// </summary>
 	/// <param name="id">Id of the symbol to be deleted</param>
 	/// <returns>True if the specified symbol was deleted</returns>
-	bool DeleteSymbol(uint id);
+	bool DeleteSymbol(int id);
 
 	/// <summary>
 	///  Returns all symbols.
@@ -32,8 +44,14 @@ public interface ISymbolManager
 	/// </summary>
 	/// <param name="id">Id of the requested symbol</param>
 	/// <returns>A data transformation object</returns>
-	SymbolDto? GetSymbol(uint id);
+	SymbolDto? GetSymbol(int id);
 
+	/// <summary>
+	/// Finds a symbol by its code.
+	/// </summary>
+	/// <param name="code">A code string identifying the symbol</param>
+	/// <returns>DTO object of the wanted symbol or null</returns>
+	SymbolDto? GetSymbolByCode(string code);
 
 	/// <summary>
 	/// Updates a symbol.
@@ -41,5 +59,5 @@ public interface ISymbolManager
 	/// <param name="id">Id of the symbol to be updated</param>
 	/// <param name="symbolDto">DTO object with modified symbol</param>
 	/// <returns>The updated symbol or null if the specified symbol wasn't found</returns>
-	SymbolDto? UpdateSymbol(uint id, SymbolDto symbolDto);
+	SymbolDto? UpdateSymbol(int id, SymbolDto symbolDto);
 }

@@ -21,10 +21,12 @@ builder.Services.AddScoped<ITeamManager, TeamManager>();
 builder.Services.AddScoped<ISymbolRepository, SymbolRepository>();
 builder.Services.AddScoped<ISymbolManager, SymbolManager>(); // Tento øádek jsme pøidali
 
-
 builder.Services.AddScoped<IPlanetRepository, PlanetRepository>();
+builder.Services.AddScoped<IPlanetManager, PlanetManager>();
+
 builder.Services.AddScoped<IAddressRepository, AddressRepository>();
-builder.Services.AddScoped<IRequestRepository, RequestRepository>();
+builder.Services.AddScoped<IAddressManager, AddressManager>();
+
 
 
 string connectionString = builder.Configuration.GetConnectionString("LocalStargateConnection");

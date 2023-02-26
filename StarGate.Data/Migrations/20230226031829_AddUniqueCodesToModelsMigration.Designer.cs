@@ -12,8 +12,8 @@ using StarGate.Data;
 namespace StarGate.Data.Migrations
 {
     [DbContext(typeof(StarGateDbContext))]
-    [Migration("20230224025140_ModifySymbolMigration")]
-    partial class ModifySymbolMigration
+    [Migration("20230226031829_AddUniqueCodesToModelsMigration")]
+    partial class AddUniqueCodesToModelsMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -32,49 +32,42 @@ namespace StarGate.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<long>("Symbol1Id")
-                        .HasColumnType("bigint");
+                    b.Property<int>("Symbol1Id")
+                        .HasColumnType("int");
 
-                    b.Property<long>("Symbol2Id")
-                        .HasColumnType("bigint");
+                    b.Property<int>("Symbol2Id")
+                        .HasColumnType("int");
 
-                    b.Property<long>("Symbol3Id")
-                        .HasColumnType("bigint");
+                    b.Property<int>("Symbol3Id")
+                        .HasColumnType("int");
 
-                    b.Property<long>("Symbol4Id")
-                        .HasColumnType("bigint");
+                    b.Property<int>("Symbol4Id")
+                        .HasColumnType("int");
 
-                    b.Property<long>("Symbol5Id")
-                        .HasColumnType("bigint");
+                    b.Property<int>("Symbol5Id")
+                        .HasColumnType("int");
 
-                    b.Property<long>("Symbol6Id")
-                        .HasColumnType("bigint");
+                    b.Property<int>("Symbol6Id")
+                        .HasColumnType("int");
 
-                    b.Property<long>("Symbol7Id")
-                        .HasColumnType("bigint");
+                    b.Property<int>("Symbol7Id")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Symbol1Id")
-                        .IsUnique();
+                    b.HasIndex("Symbol1Id");
 
-                    b.HasIndex("Symbol2Id")
-                        .IsUnique();
+                    b.HasIndex("Symbol2Id");
 
-                    b.HasIndex("Symbol3Id")
-                        .IsUnique();
+                    b.HasIndex("Symbol3Id");
 
-                    b.HasIndex("Symbol4Id")
-                        .IsUnique();
+                    b.HasIndex("Symbol4Id");
 
-                    b.HasIndex("Symbol5Id")
-                        .IsUnique();
+                    b.HasIndex("Symbol5Id");
 
-                    b.HasIndex("Symbol6Id")
-                        .IsUnique();
+                    b.HasIndex("Symbol6Id");
 
-                    b.HasIndex("Symbol7Id")
-                        .IsUnique();
+                    b.HasIndex("Symbol7Id");
 
                     b.ToTable("Address");
                 });
@@ -90,6 +83,11 @@ namespace StarGate.Data.Migrations
                     b.Property<int>("AddressId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
                     b.Property<bool>("Explored")
                         .HasColumnType("bit");
 
@@ -101,12 +99,15 @@ namespace StarGate.Data.Migrations
                     b.Property<int>("Safety")
                         .HasColumnType("int");
 
-                    b.Property<long>("TeamId")
-                        .HasColumnType("bigint");
+                    b.Property<int>("TeamId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AddressId");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
 
                     b.HasIndex("TeamId");
 
@@ -128,11 +129,16 @@ namespace StarGate.Data.Migrations
 
             modelBuilder.Entity("StarGate.Data.Models.Symbol", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<byte[]>("Image")
                         .IsRequired()
@@ -145,6 +151,9 @@ namespace StarGate.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Code")
+                        .IsUnique();
+
                     b.HasIndex("Name")
                         .IsUnique();
 
@@ -153,14 +162,18 @@ namespace StarGate.Data.Migrations
 
             modelBuilder.Entity("StarGate.Data.Models.Team", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<long>("Members")
-                        .HasColumnType("bigint");
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Members")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -168,6 +181,9 @@ namespace StarGate.Data.Migrations
                         .HasColumnType("nvarchar(30)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
 
                     b.HasIndex("Name")
                         .IsUnique();

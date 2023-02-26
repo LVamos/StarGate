@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 
+using Microsoft.AspNetCore.Http;
+
 using StarGate.Business.Interfaces;
 using StarGate.Business.Models;
 using StarGate.Data.Interfaces;
@@ -13,12 +15,59 @@ namespace StarGate.Business.Managers;
 public class SymbolManager : ISymbolManager
 {
 	/// <summary>
+	/// Adds a symbol.
+	/// </summary>
+	/// <param name="code">A short string identifying the symbol</param>
+	/// <param name="name">Name of the symbol</param>
+	/// <param name="imageFile">Access to a file with symbol image</param>
+	/// <returns>A DTO object representing the symbol</returns>
+	public SymbolDto? AddSymbol(string code, string name, IFormFile imageFile)
+	{
+		// Read the file.
+		byte[] image = null;
+		try
+		{
+			using var binaryReader = new BinaryReader(imageFile.OpenReadStream());
+			image = binaryReader.ReadBytes((int)imageFile.Length);
+		}
+		catch
+		{
+			return null;
+		}
+
+		// Store the symbol.
+		SymbolDto symbol = new SymbolDto
+		{
+			Code = code,
+			Name = name,
+			Image = image
+		};
+
+		return AddSymbol(symbol);
+	}
+
+	/// <summary>
+	/// Finds a symbol by its code.
+	/// </summary>
+	/// <param name="code">A code string identifying the symbol</param>
+	/// <returns>DTO object of the wanted symbol or null</returns>
+	public SymbolDto? GetSymbolByCode(string code)
+	{
+		Symbol? symbol = _symbolRepository.FindByCode(code);
+
+		if (symbol is null)
+			return null;
+
+		return _mapper.Map<SymbolDto>(symbol);
+	}
+
+	/// <summary>
 	/// Updates a symbol.
 	/// </summary>
 	/// <param name="id">Id of the symbol to be updated</param>
 	/// <param name="symbolDto">DTO object with modified symbol</param>
 	/// <returns>The updated symbol or null if the specified symbol wasn't found</returns>
-	public SymbolDto? UpdateSymbol(uint id, SymbolDto symbolDto)
+	public SymbolDto? UpdateSymbol(int id, SymbolDto symbolDto)
 	{
 		if (!_symbolRepository.ExistsWithId(id))
 			return null;
@@ -49,7 +98,7 @@ public class SymbolManager : ISymbolManager
 	/// </summary>
 	/// <param name="id">Id of the symbol to be deleted</param>
 	/// <returns>True if the specified symbol was deleted</returns>
-	public bool DeleteSymbol(uint id)
+	public bool DeleteSymbol(int id)
 	{
 		bool found = _symbolRepository.ExistsWithId(id);
 
@@ -64,7 +113,7 @@ public class SymbolManager : ISymbolManager
 	/// </summary>
 	/// <param name="id">Id of the requested symbol</param>
 	/// <returns>A data transformation object</returns>
-	public SymbolDto? GetSymbol(uint id)
+	public SymbolDto? GetSymbol(int id)
 	{
 		Symbol? symbol = _symbolRepository.FindById(id);
 

@@ -8,7 +8,12 @@ public class TeamDto
 	/// <summary>
 	/// Id of the team
 	/// </summary>
-	public uint Id { get; set; }
+	public int Id { get; set; }
+
+	/// <summary>
+	/// Unique code of the team
+	/// </summary>
+	public string Code { get; set; } = "";
 
 	/// <summary>
 	/// Name of the team
@@ -18,5 +23,5 @@ public class TeamDto
 	/// <summary>
 	/// Number of team members
 	/// </summary>
-	public uint Members { get; set; }
+	public int Members { get; set; }
 }

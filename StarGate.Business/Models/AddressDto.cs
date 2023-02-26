@@ -10,6 +10,14 @@ public class AddressDto
 	/// </summary>
 	public int Id { get; set; }
 
+	public int Symbol1Id { get; set; }
+	public int Symbol2Id { get; set; }
+	public int Symbol3Id { get; set; }
+	public int Symbol4Id { get; set; }
+	public int Symbol5Id { get; set; }
+	public int Symbol6Id { get; set; }
+	public int Symbol7Id { get; set; }
+
 	/// <summary>
 	/// 1st symbol of the address
 	/// </summary>

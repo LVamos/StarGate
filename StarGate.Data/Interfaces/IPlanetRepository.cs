@@ -7,4 +7,5 @@ namespace StarGate.Data.Interfaces;
 /// </summary>
 public interface IPlanetRepository : IBaseRepository<Planet>
 {
+	bool Delete(string code);
 }
