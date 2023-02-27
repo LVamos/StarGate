@@ -67,7 +67,13 @@ public class PlanetsController : ControllerBase
 	/// <param name="code">A short string identifying the planet</param>
 	/// <returns>IActionResult</returns>
 	[HttpDelete("planets")]
-	public IActionResult DeletePlanet(string code) => _planetManager.DeletePlanet(code) ? Ok() : NotFound();
+	public IActionResult DeletePlanet(string code)
+	{
+		if (!_planetManager.DeletePlanet(code))
+			return Problem(title: "Error", detail: "The planet could not be deleted properly.", statusCode: 500);
+
+		return Ok();
+	}
 
 	/// <summary>
 	///  Gets a planet.

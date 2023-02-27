@@ -32,7 +32,28 @@ public class PlanetManager : IPlanetManager
 	/// </summary>
 	/// <param name="code">A short string identifying the planet</param>
 	/// <returns>True if the planet was deleted</returns>
-	public bool DeletePlanet(string code) => _planetRepository.Delete(code);
+	public bool DeletePlanet(string code)
+	{
+		// Delete the planet.
+		PlanetDto? planet = GetPlanetByCode(code);
+		if (planet is null)
+			return false;
+
+		try
+		{
+			_planetRepository.Delete(planet.Id);
+		}
+		catch
+		{
+			return false;
+		}
+
+		// Delete address of the planet.
+		if (!_addressManager.DeleteAddress(planet.AddressId))
+			return false;
+
+		return true;
+	}
 
 	/// <summary>
 	/// Adds a planet.
