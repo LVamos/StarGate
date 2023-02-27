@@ -58,16 +58,20 @@ public class PlanetManager : IPlanetManager
 			return null;
 
 		// Get team.
-		TeamDto? team = _teamManager.GetTeamByCode(teamCode);
-		if (team is null)
-			return null;
+		TeamDto? team = null;
+		if (explored)
+		{
+			team = _teamManager.GetTeamByCode(teamCode);
+			if (team is null)
+				return null;
+		}
 
 		// Store the planet.
 		PlanetDto planet = new()
 		{
 			Code = code,
 			Name = name,
-			TeamId = team.Id,
+			TeamId = team is null ? null : team.Id,
 			Explored = explored,
 			Safety = safety,
 			AddressId = address.Id
