@@ -56,4 +56,12 @@ public interface ITeamManager
 	/// <param name="teamDto">DTO object with modified team</param>
 	/// <returns>The updated team or null if the specified team wasn't found</returns>
 	TeamDto? UpdateTeam(int id, TeamDto teamDto);
+
+	/// <summary>
+	/// Updates a team.
+	/// </summary>
+	/// <param name="code">A short string identifying the team</param>
+	/// <param name="team">A DTO object representing target state of the team</param>
+	/// <returns>A DTO object of the updated team or null</returns>
+	TeamDto? UpdateTeam(string code, TeamDto team);
 }

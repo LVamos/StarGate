@@ -15,13 +15,21 @@ public class TeamsController : ControllerBase
 	/// <summary>
 	/// Updates a team.
 	/// </summary>
-	/// <param name="id">Id of the team to be updated</param>
-	/// <param name="team">DTO object with modified team</param>
+	/// <param name="code">A short string identifying the team</param>
+	/// <param name="name">Name of the team</param>
+	/// <param name="members">Number of members belonging to the team</param>
 	/// <returns>IActionResult</returns>
-	[HttpPut("teams/{id}")]
-	public IActionResult EditTeam(int id, [FromBody] TeamDto team)
+	[HttpPut("teams")]
+	public IActionResult EditTeam(string code, string name, int members = 1)
 	{
-		TeamDto? updatedTeam = _teamManager.UpdateTeam(id, team);
+		TeamDto team = new TeamDto
+		{
+			Code = code,
+			Name = name,
+			Members = members
+		};
+
+		TeamDto? updatedTeam = _teamManager.UpdateTeam(code, team);
 
 		if (updatedTeam is null)
 			return NotFound();

@@ -13,6 +13,22 @@ namespace StarGate.Business.Managers;
 public class TeamManager : ITeamManager
 {
 	/// <summary>
+	/// Updates a team.
+	/// </summary>
+	/// <param name="code">A short string identifying the team</param>
+	/// <param name="team">A DTO object representing target state of the team</param>
+	/// <returns>A DTO object of the updated team or null</returns>
+	public TeamDto? UpdateTeam(string code, TeamDto team)
+	{
+		TeamDto? updatedTeam = GetTeamByCode(code);
+		if (updatedTeam is null)
+			return null;
+
+		return UpdateTeam(updatedTeam.Id, team);
+	}
+
+
+	/// <summary>
 	/// Deletes a team.
 	/// </summary>
 	/// <param name="code">A short string identifying the team</param>
