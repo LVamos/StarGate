@@ -64,12 +64,12 @@ public class SymbolsController : ControllerBase
 	/// <summary>
 	///  Gets a symbol.
 	/// </summary>
-	/// <param name="id"></param>
+	/// <param name="code">A short string identifying the symbol</param>
 	/// <returns>IActionResult</returns>
-	[HttpGet("symbols/{id}")]
-	public IActionResult GetSymbol(int id)
+	[HttpGet("symbols/{code}")]
+	public IActionResult GetSymbol(string code)
 	{
-		SymbolDto? symbol = _symbolManager.GetSymbol(id);
+		SymbolDto? symbol = _symbolManager.GetSymbolByCode(code);
 
 		if (symbol is null)
 			return NotFound();
