@@ -10,6 +10,14 @@ namespace StarGate.Data.Repositories;
 /// </summary>
 public class PlanetRepository : BaseRepository<Planet>, IPlanetRepository
 {
+
+	/// <summary>
+	/// Finds a planet by its code.
+	/// </summary>
+	/// <param name="code">A code string identifying the planet</param>
+	/// <returns>DTO object of the wanted planet or null</returns>
+	public Planet? FindByCode(string code) => _dbContext.Planets.FirstOrDefault(p => p.Code == code);
+
 	/// <summary>
 	/// Deletes a planet.
 	/// </summary>
@@ -35,6 +43,23 @@ public class PlanetRepository : BaseRepository<Planet>, IPlanetRepository
 		}
 
 		return true;
+	}
+
+	public override Planet Update(Planet entity)
+	{
+		Planet? entry = FindById(entity.Id);
+
+		if (entity.TeamId == 0)
+			entry.Team = null;
+
+		entry.AddressId = entity.AddressId;
+		entry.TeamId = entity.TeamId;
+		entry.Code = entity.Code;
+		entry.Name = entity.Name;
+		entry.Safety = entity.Safety;
+		entry.Explored = entity.Explored;
+		_dbContext.SaveChanges();
+		return entry;
 	}
 
 	/// <summary>

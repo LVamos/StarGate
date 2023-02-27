@@ -81,7 +81,7 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
 	/// </summary>
 	/// <param name="entity">The modified record</param>
 	/// <returns>The modified record</returns>
-	public TEntity Update(TEntity entity)
+	public virtual TEntity Update(TEntity entity)
 	{
 		EntityEntry<TEntity> entityEntry = _dbSet.Update(entity);
 		_dbContext.SaveChanges();

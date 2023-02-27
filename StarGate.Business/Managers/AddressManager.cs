@@ -13,6 +13,29 @@ namespace StarGate.Business.Managers;
 public class AddressManager : IAddressManager
 {
 	/// <summary>
+	///  Gets a address.
+	/// </summary>
+	/// <param name="symbolCode1">Code of the 1st symbol of the address</param>
+	/// <param name="symbolCode2">Code of the 2nd symbol of the address</param>
+	/// <param name="symbolCode3">Code of the 3rd symbol of the address</param>
+	/// <param name="symbolCode4">Code of the 4th symbol of the address</param>
+	/// <param name="symbolCode5">Code of the 5th symbol of the address</param>
+	/// <param name="symbolCode6">Code of the 6th symbol fo the address</param>
+	/// <param name="symbolCode7">Code of the 7th symbol of the address</param>
+	/// <returns>A data transformation object with the wanted address record or null</returns>
+	public AddressDto? GetAddress(string symbolCode1, string symbolCode2, string symbolCode3, string symbolCode4, string symbolCode5, string symbolCode6, string symbolCode7)
+	{
+		Address? address = _addressRepository.FindBySymbols(symbolCode1, symbolCode2, symbolCode3, symbolCode4, symbolCode5, symbolCode6, symbolCode7);
+
+		if (address is null)
+			return null;
+
+		return _mapper.Map<AddressDto>(address);
+	}
+
+
+
+	/// <summary>
 	/// Checks if the specified address exists (compared by its symbols).
 	/// </summary>
 	/// <param name="address">A DTO object with the address to be checked</param>
@@ -96,22 +119,6 @@ public class AddressManager : IAddressManager
 	public AddressDto AddAddress(AddressDto addressDto)
 	{
 		Address address = _mapper.Map<Address>(addressDto);
-
-		//address.Symbol1Id = address.Symbol1.Id;
-		//address.Symbol2Id = address.Symbol2.Id;
-		//address.Symbol3Id = address.Symbol3.Id;
-		//address.Symbol4Id = address.Symbol4.Id;
-		//address.Symbol5Id = address.Symbol5.Id;
-		//address.Symbol6Id = address.Symbol6.Id;
-		//address.Symbol7Id = address.Symbol7.Id;
-
-		//address.Symbol1 = null!;
-		//address.Symbol2 = null!;
-		//address.Symbol3 = null!;
-		//address.Symbol4 = null!;
-		//address.Symbol5 = null!;
-		//address.Symbol6 = null!;
-		//address.Symbol7 = null!;
 
 		Address newAddress = _addressRepository.Insert(address);
 

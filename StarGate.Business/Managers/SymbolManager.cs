@@ -73,7 +73,6 @@ public class SymbolManager : ISymbolManager
 			return null;
 
 		Symbol symbol = _mapper.Map<Symbol>(symbolDto);
-		symbol.Id = id;
 		Symbol updatedSymbol = _symbolRepository.Update(symbol);
 
 		return _mapper.Map<SymbolDto>(updatedSymbol);

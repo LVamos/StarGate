@@ -64,8 +64,26 @@ public interface IPlanetManager
 	/// <summary>
 	/// Updates a planet.
 	/// </summary>
-	/// <param name="id">Id of the planet to be updated</param>
-	/// <param name="planetDto">DTO object with modified planet</param>
+	/// <param name="planetCode">A short string identifying the planet</param>
+	/// <param name="name">Name of the planet</param>
+	/// <param name="teamCode">Id of a team that has explored the planet</param>
+	/// <param name="explored"><Whether the lanet has been explored/param>
+	/// <param name="safety">Safety clasification</param>
+	/// <param name="symbol1">1st symbol of address of the planet</param>
+	/// <param name="symbol2">2nd  symbol of address of the planet</param>
+	/// <param name="symbol3">3rd  symbol of address of the planet</param>
+	/// <param name="symbzol4">4th  symbol of address of the planet</param>
+	/// <param name="symbol5">5th  symbol of address of the planet</param>
+	/// <param name="symbol6">6th  symbol of address of the planet</param>
+	/// <param name="symbol7">7th  symbol of address of the planet</param>
 	/// <returns>The updated planet or null if the specified planet wasn't found</returns>
-	PlanetDto? UpdatePlanet(int id, PlanetDto planetDto);
+	PlanetDto? UpdatePlanet(string code, string name, string teamCode, bool explored, PlanetSafety safety, string symbol1, string symbol2, string symbol3, string symbol4, string symbol5, string symbol6, string symbol7);
+
+	/// <summary>
+	/// Updates a planet.
+	/// </summary>
+	/// <param name="code">A short string identifying the planet</param>
+	/// <param name="planet">A DTO object representing target modification of the planet</param>
+	/// <returns>A DTO object of the updated planet or null</returns>
+	PlanetDto? UpdatePlanet(string code, PlanetDto planet);
 }

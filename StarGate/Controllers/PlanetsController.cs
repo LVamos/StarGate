@@ -17,16 +17,16 @@ public class PlanetsController : ControllerBase
 	/// <summary>
 	/// Updates a planet.
 	/// </summary>
-	/// <param name="id">Id of the planet to be updated</param>
+	/// <param name="code">A short string identifying the planet</param>
 	/// <param name="planet">DTO object with modified planet</param>
 	/// <returns>IActionResult</returns>
-	[HttpPut("planets/{id}")]
-	public IActionResult EditPlanet(int id, [FromBody] PlanetDto planet)
+	[HttpPut("planets")]
+	public IActionResult EditPlanet(string code, string name, string teamCode, bool explored, PlanetSafety safety, string symbol1, string symbol2, string symbol3, string symbol4, string symbol5, string symbol6, string symbol7)
 	{
-		PlanetDto? updatedPlanet = _planetManager.UpdatePlanet(id, planet);
+		PlanetDto? updatedPlanet = _planetManager.UpdatePlanet(code, name, teamCode, explored, safety, symbol1, symbol2, symbol3, symbol4, symbol5, symbol6, symbol7);
 
 		if (updatedPlanet is null)
-			return NotFound();
+			return Problem(title: "Error", detail: "The planet could not be updated.", statusCode: 500);
 
 		return Ok(updatedPlanet);
 	}

@@ -12,8 +12,8 @@ using StarGate.Data;
 namespace StarGate.Data.Migrations
 {
     [DbContext(typeof(StarGateDbContext))]
-    [Migration("20230226002611_FixUniqueKeysInAddressMigration")]
-    partial class FixUniqueKeysInAddressMigration
+    [Migration("20230227022758_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -55,6 +55,8 @@ namespace StarGate.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Symbol1Id");
+
                     b.HasIndex("Symbol2Id");
 
                     b.HasIndex("Symbol3Id");
@@ -66,9 +68,6 @@ namespace StarGate.Data.Migrations
                     b.HasIndex("Symbol6Id");
 
                     b.HasIndex("Symbol7Id");
-
-                    b.HasIndex(new[] { "Symbol1Id", "Symbol2Id", "Symbol3Id", "Symbol4Id", "Symbol5Id", "Symbol6Id", "Symbol7Id" }, "My_Unique_Index")
-                        .IsUnique();
 
                     b.ToTable("Address");
                 });
@@ -84,6 +83,11 @@ namespace StarGate.Data.Migrations
                     b.Property<int>("AddressId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
                     b.Property<bool>("Explored")
                         .HasColumnType("bit");
 
@@ -95,12 +99,18 @@ namespace StarGate.Data.Migrations
                     b.Property<int>("Safety")
                         .HasColumnType("int");
 
-                    b.Property<int>("TeamId")
+                    b.Property<int?>("TeamId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AddressId");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.HasIndex("TeamId");
 
@@ -128,6 +138,11 @@ namespace StarGate.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
                     b.Property<byte[]>("Image")
                         .IsRequired()
                         .HasColumnType("varbinary(max)");
@@ -138,6 +153,9 @@ namespace StarGate.Data.Migrations
                         .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
 
                     b.HasIndex("Name")
                         .IsUnique();
@@ -153,8 +171,12 @@ namespace StarGate.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<long>("Members")
-                        .HasColumnType("bigint");
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Members")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -162,6 +184,9 @@ namespace StarGate.Data.Migrations
                         .HasColumnType("nvarchar(30)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
 
                     b.HasIndex("Name")
                         .IsUnique();
@@ -238,9 +263,7 @@ namespace StarGate.Data.Migrations
 
                     b.HasOne("StarGate.Data.Models.Team", "Team")
                         .WithMany()
-                        .HasForeignKey("TeamId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("TeamId");
 
                     b.Navigation("Address");
 

@@ -19,6 +19,7 @@ public enum PlanetSafety
 /// Describes the Planet entity.
 /// </summary>
 [Index(nameof(Planet.Code), IsUnique = true)]
+[Index(nameof(Planet.Name), IsUnique = true)]
 public class Planet
 {
 	/// <summary>
@@ -34,7 +35,8 @@ public class Planet
 	[Required]
 	public bool Explored { get; set; }
 
-	public int TeamId { get; set; }
+	public int? TeamId { get; set; }
+
 	/// <summary>
 	/// A team that has explored the planet.
 	/// </summary>
@@ -48,7 +50,6 @@ public class Planet
 	/// <summary>
 	/// Unique code of the planet.
 	/// </summary>
-
 	[Required]
 	[StringLength(10)]
 	public string Code { get; set; } = "";
@@ -59,11 +60,11 @@ public class Planet
 	[StringLength(30)]
 	public string Name { get; set; } = "";
 
+	[Required]
 	public int AddressId { get; set; }
 
 	/// <summary>
 	/// Address of a star gate on the planet.
 	/// </summary>
-	[Required]
 	public virtual Address Address { get; set; }
 }

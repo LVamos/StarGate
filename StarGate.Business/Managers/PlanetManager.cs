@@ -13,6 +13,21 @@ namespace StarGate.Business.Managers;
 public class PlanetManager : IPlanetManager
 {
 	/// <summary>
+	/// Finds a planet by its code.
+	/// </summary>
+	/// <param name="code">A code string identifying the planet</param>
+	/// <returns>DTO object of the wanted planet or null</returns>
+	public PlanetDto? GetPlanetByCode(string code)
+	{
+		Planet? planet = _planetRepository.FindByCode(code);
+
+		if (planet is null)
+			return null;
+
+		return _mapper.Map<PlanetDto>(planet);
+	}
+
+	/// <summary>
 	/// Deletes a planet.
 	/// </summary>
 	/// <param name="code">A short string identifying the planet</param>
@@ -64,17 +79,63 @@ public class PlanetManager : IPlanetManager
 	/// <summary>
 	/// Updates a planet.
 	/// </summary>
-	/// <param name="id">Id of the planet to be updated</param>
-	/// <param name="planetDto">DTO object with modified planet</param>
+	/// <param name="code">A short string identifying the planet</param>
+	/// <param name="name">Name of the planet</param>
+	/// <param name="teamCode">Id of a team that has explored the planet</param>
+	/// <param name="explored"><Whether the lanet has been explored/param>
+	/// <param name="safety">Safety clasification</param>
+	/// <param name="symbol1">1st symbol of address of the planet</param>
+	/// <param name="symbol2">2nd  symbol of address of the planet</param>
+	/// <param name="symbol3">3rd  symbol of address of the planet</param>
+	/// <param name="symbzol4">4th  symbol of address of the planet</param>
+	/// <param name="symbol5">5th  symbol of address of the planet</param>
+	/// <param name="symbol6">6th  symbol of address of the planet</param>
+	/// <param name="symbol7">7th  symbol of address of the planet</param>
 	/// <returns>The updated planet or null if the specified planet wasn't found</returns>
-	public PlanetDto? UpdatePlanet(int id, PlanetDto planetDto)
+	public PlanetDto? UpdatePlanet(string code, string name, string teamCode, bool explored, PlanetSafety safety, string symbol1, string symbol2, string symbol3, string symbol4, string symbol5, string symbol6, string symbol7)
 	{
-		if (!_planetRepository.ExistsWithId(id))
+		// Try to find address in database. If it doesn't exist, create it.
+		AddressDto? address = _addressManager.GetAddress(symbol1, symbol2, symbol3, symbol4, symbol5, symbol6, symbol7);
+
+		if (address is null)
+		{
+			// Create it.
+			address = _addressManager.AddAddress(symbol1, symbol2, symbol3, symbol4, symbol5, symbol6, symbol7);
+			if (address is null)
+				return null;
+		}
+
+		// Get team if the planet has been explored.
+		TeamDto? team = null;
+		if (explored)
+		{
+			team = _teamManager.GetTeamByCode(teamCode);
+			if (team is null)
+				return null;
+		}
+
+		// Get planet.
+		PlanetDto? currentPlanet = GetPlanetByCode(code);
+		if (currentPlanet is null)
 			return null;
 
-		Planet planet = _mapper.Map<Planet>(planetDto);
-		planet.Id = id;
-		Planet updatedPlanet = _planetRepository.Update(planet);
+		// Update planet.
+		PlanetDto? newPlanet = new PlanetDto()
+		{
+			Id = currentPlanet.Id,
+			Code = code,
+			Name = name,
+			TeamId = team is null ? null : team.Id,
+			Explored = explored,
+			Safety = safety,
+			AddressId = address.Id
+		};
+
+		Planet planet = _mapper.Map<Planet>(newPlanet);
+		Planet? updatedPlanet = _planetRepository.Update(planet);
+
+		if (updatedPlanet is null)
+			return null;
 
 		return _mapper.Map<PlanetDto>(updatedPlanet);
 	}
@@ -150,6 +211,21 @@ public class PlanetManager : IPlanetManager
 	{
 		IList<Planet> planets = _planetRepository.GetAll();
 		return _mapper.Map<IList<PlanetDto>>(planets);
+	}
+
+	/// <summary>
+	/// Updates a planet.
+	/// </summary>
+	/// <param name="code">A short string identifying the planet</param>
+	/// <param name="planet">A DTO object representing target modification of the planet</param>
+	/// <returns>A DTO object of the updated planet or null</returns>
+	public PlanetDto? UpdatePlanet(string code, PlanetDto planet)
+	{
+		PlanetDto updatedPlanet = GetPlanetByCode(code);
+		if (updatedPlanet is null)
+			return null;
+
+		return UpdatePlanet(updatedPlanet.Code, updatedPlanet);
 	}
 
 	/// <summary>

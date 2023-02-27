@@ -19,7 +19,7 @@ public class PlanetDto
 	/// </summary>
 	public bool Explored { get; set; }
 
-	public int TeamId { get; set; }
+	public int? TeamId { get; set; }
 
 	/// <summary>
 	/// A team that has explored the planet.

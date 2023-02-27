@@ -46,7 +46,7 @@ builder.Services.AddSwaggerGen(
 		Description = "Webové API pro ovládání hvìzdné brány"
 	}));
 
-builder.Services.AddControllers()
+builder.Services.AddControllers(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true)
 	.AddJsonOptions(o => o.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 
 WebApplication app = builder.Build();

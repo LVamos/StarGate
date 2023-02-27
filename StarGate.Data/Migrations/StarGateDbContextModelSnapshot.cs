@@ -97,7 +97,7 @@ namespace StarGate.Data.Migrations
                     b.Property<int>("Safety")
                         .HasColumnType("int");
 
-                    b.Property<int>("TeamId")
+                    b.Property<int?>("TeamId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -105,6 +105,9 @@ namespace StarGate.Data.Migrations
                     b.HasIndex("AddressId");
 
                     b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.HasIndex("Name")
                         .IsUnique();
 
                     b.HasIndex("TeamId");
@@ -258,9 +261,7 @@ namespace StarGate.Data.Migrations
 
                     b.HasOne("StarGate.Data.Models.Team", "Team")
                         .WithMany()
-                        .HasForeignKey("TeamId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("TeamId");
 
                     b.Navigation("Address");
 

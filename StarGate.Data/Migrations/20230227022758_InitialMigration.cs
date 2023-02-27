@@ -15,6 +15,7 @@ namespace StarGate.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Code = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     Name = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     Image = table.Column<byte[]>(type: "varbinary(max)", nullable: false)
                 },
@@ -29,8 +30,9 @@ namespace StarGate.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Code = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
-                    Members = table.Column<long>(type: "bigint", nullable: false)
+                    Members = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -105,8 +107,9 @@ namespace StarGate.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Explored = table.Column<bool>(type: "bit", nullable: false),
-                    TeamId = table.Column<int>(type: "int", nullable: false),
+                    TeamId = table.Column<int>(type: "int", nullable: true),
                     Safety = table.Column<int>(type: "int", nullable: false),
+                    Code = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     Name = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     AddressId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -123,8 +126,7 @@ namespace StarGate.Data.Migrations
                         name: "FK_Planet_Team_TeamId",
                         column: x => x.TeamId,
                         principalTable: "Team",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -147,49 +149,54 @@ namespace StarGate.Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Address_Symbol1Id",
                 table: "Address",
-                column: "Symbol1Id",
-                unique: true);
+                column: "Symbol1Id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Address_Symbol2Id",
                 table: "Address",
-                column: "Symbol2Id",
-                unique: true);
+                column: "Symbol2Id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Address_Symbol3Id",
                 table: "Address",
-                column: "Symbol3Id",
-                unique: true);
+                column: "Symbol3Id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Address_Symbol4Id",
                 table: "Address",
-                column: "Symbol4Id",
-                unique: true);
+                column: "Symbol4Id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Address_Symbol5Id",
                 table: "Address",
-                column: "Symbol5Id",
-                unique: true);
+                column: "Symbol5Id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Address_Symbol6Id",
                 table: "Address",
-                column: "Symbol6Id",
-                unique: true);
+                column: "Symbol6Id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Address_Symbol7Id",
                 table: "Address",
-                column: "Symbol7Id",
-                unique: true);
+                column: "Symbol7Id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Planet_AddressId",
                 table: "Planet",
                 column: "AddressId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Planet_Code",
+                table: "Planet",
+                column: "Code",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Planet_Name",
+                table: "Planet",
+                column: "Name",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Planet_TeamId",
@@ -202,9 +209,21 @@ namespace StarGate.Data.Migrations
                 column: "PlanetId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Symbol_Code",
+                table: "Symbol",
+                column: "Code",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Symbol_Name",
                 table: "Symbol",
                 column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Team_Code",
+                table: "Team",
+                column: "Code",
                 unique: true);
 
             migrationBuilder.CreateIndex(
