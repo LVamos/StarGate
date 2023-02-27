@@ -78,12 +78,12 @@ public class PlanetsController : ControllerBase
 	/// <summary>
 	///  Gets a planet.
 	/// </summary>
-	/// <param name="id"></param>
+	/// <param name="code">A short string identifying the planet</param>
 	/// <returns>IActionResult</returns>
-	[HttpGet("planets/{id}")]
-	public IActionResult GetPlanet(int id)
+	[HttpGet("planets/{code}")]
+	public IActionResult GetPlanet(string code)
 	{
-		PlanetDto? planet = _planetManager.GetPlanet(id);
+		PlanetDto? planet = _planetManager.GetPlanetByCode(code);
 
 		return planet is null ? NotFound() : Ok(planet);
 	}

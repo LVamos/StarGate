@@ -59,6 +59,7 @@ public interface IPlanetManager
 	/// <param name="id">Id of the requested planet</param>
 	/// <returns>A data transformation object</returns>
 	PlanetDto? GetPlanet(int id);
+	PlanetDto? GetPlanetByCode(string code);
 
 
 	/// <summary>
