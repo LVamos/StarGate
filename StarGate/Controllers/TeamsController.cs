@@ -48,6 +48,9 @@ public class TeamsController : ControllerBase
 
 		TeamDto? newTeam = _teamManager.AddTeam(team);
 
+		if (team is null)
+			return Problem(title: "Error", detail: "The team could not be added.", statusCode: 500);
+
 		return CreatedAtAction(nameof(GetTeam), new { Id = newTeam.Id }, newTeam);
 	}
 
