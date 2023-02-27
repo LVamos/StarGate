@@ -7,4 +7,10 @@ namespace StarGate.Data.Interfaces;
 /// </summary>
 public interface IRequestRepository : IBaseRepository<Request>
 {
+	/// <summary>
+	/// Finds a request by its code.
+	/// </summary>
+	/// <param name="code">A code string identifying the request</param>
+	/// <returns>DTO object of the wanted request or null</returns>
+	Request? FindByCode(string code);
 }

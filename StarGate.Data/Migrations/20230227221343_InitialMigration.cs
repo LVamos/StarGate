@@ -133,11 +133,15 @@ namespace StarGate.Data.Migrations
                 name: "Request",
                 columns: table => new
                 {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Type = table.Column<int>(type: "int", nullable: false),
+                    Code = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     PlanetId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("PK_Request", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Request_Planet_PlanetId",
                         column: x => x.PlanetId,
@@ -202,6 +206,12 @@ namespace StarGate.Data.Migrations
                 name: "IX_Planet_TeamId",
                 table: "Planet",
                 column: "TeamId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Request_Code",
+                table: "Request",
+                column: "Code",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Request_PlanetId",
