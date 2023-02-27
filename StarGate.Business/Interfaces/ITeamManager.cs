@@ -22,6 +22,13 @@ public interface ITeamManager
 	bool DeleteTeam(int id);
 
 	/// <summary>
+	/// Deletes a team.
+	/// </summary>
+	/// <param name="code">A short string identifying the team</param>
+	/// <returns>True if the team was deleted</returns>
+	bool DeleteTeam(string code);
+
+	/// <summary>
 	///  Returns all teams.
 	/// </summary>
 	/// <returns>A list of teams</returns>

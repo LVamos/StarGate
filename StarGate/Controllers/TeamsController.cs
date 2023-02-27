@@ -57,10 +57,16 @@ public class TeamsController : ControllerBase
 	/// <summary>
 	///  Deletes a team.
 	/// </summary>
-	/// <param name="id">Id of the team to be deleted</param>
+	/// <param name="code">A short string identifying the team</param>
 	/// <returns>IActionResult</returns>
-	[HttpDelete("teams/{id}")]
-	public IActionResult DeleteTeam(int id) => _teamManager.DeleteTeam(id) ? Ok() : NotFound();
+	[HttpDelete("teams")]
+	public IActionResult DeleteTeam(string code)
+	{
+		if (!_teamManager.DeleteTeam(code))
+			return NotFound();
+
+		return Ok();
+	}
 
 	/// <summary>
 	///  Gets a team.

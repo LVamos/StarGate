@@ -13,6 +13,30 @@ namespace StarGate.Business.Managers;
 public class TeamManager : ITeamManager
 {
 	/// <summary>
+	/// Deletes a team.
+	/// </summary>
+	/// <param name="code">A short string identifying the team</param>
+	/// <returns>True if the team was deleted</returns>
+	public bool DeleteTeam(string code)
+	{
+		// Delete the planet.
+		TeamDto? team = GetTeamByCode(code);
+		if (team is null)
+			return false;
+
+		try
+		{
+			_teamRepository.Delete(team.Id);
+		}
+		catch
+		{
+			return false;
+		}
+
+		return true;
+	}
+
+	/// <summary>
 	/// Finds a team by its code.
 	/// </summary>
 	/// <param name="code">A code string identifying the team</param>
