@@ -13,6 +13,13 @@ namespace StarGate.Controllers;
 public class RequestsController : ControllerBase
 {
 	/// <summary>
+	///  Gets all requests.
+	/// </summary>
+	/// <returns>ienumeration of requests</returns>
+	[HttpGet("requests")]
+	public IEnumerable<RequestDto> GetRequests() => _requestManager.GetAllRequests();
+
+	/// <summary>
 	/// A request manager.
 	/// </summary>
 	private IRequestManager _requestManager;

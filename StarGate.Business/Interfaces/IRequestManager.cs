@@ -8,6 +8,12 @@ namespace StarGate.Business.Interfaces;
 public interface IRequestManager
 {
 	/// <summary>
+	///  Returns all requests.
+	/// </summary>
+	/// <returns>A list of requests</returns>
+	IList<RequestDto> GetAllRequests();
+
+	/// <summary>
 	///  Gets a request.
 	/// </summary>
 	/// <param name="id">Id of the requested request</param>

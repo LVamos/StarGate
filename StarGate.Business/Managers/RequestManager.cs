@@ -12,6 +12,15 @@ namespace StarGate.Business.Managers;
 /// </summary>
 public class RequestManager : IRequestManager
 {
+	/// <summary>
+	///  Returns all requests.
+	/// </summary>
+	/// <returns>A list of requests</returns>
+	public IList<RequestDto> GetAllRequests()
+	{
+		IList<Request> requests = _requestRepository.GetAll();
+		return _mapper.Map<IList<RequestDto>>(requests);
+	}
 
 
 	/// <summary>
