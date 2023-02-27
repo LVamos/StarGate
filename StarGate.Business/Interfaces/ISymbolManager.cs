@@ -60,4 +60,13 @@ public interface ISymbolManager
 	/// <param name="symbolDto">DTO object with modified symbol</param>
 	/// <returns>The updated symbol or null if the specified symbol wasn't found</returns>
 	SymbolDto? UpdateSymbol(int id, SymbolDto symbolDto);
+
+
+	/// <summary>
+	/// Updates a symbol.
+	/// </summary>
+	/// <param name="code">A short string identifying the symbol to be updated</param>
+	/// <param name="symbolDto">DTO object with modified symbol</param>
+	/// <returns>The updated symbol or null if the specified symbol wasn't found</returns>
+	SymbolDto? UpdateSymbol(string code, SymbolDto symbolDto);
 }

@@ -15,6 +15,22 @@ namespace StarGate.Business.Managers;
 public class SymbolManager : ISymbolManager
 {
 	/// <summary>
+	/// Updates a symbol.
+	/// </summary>
+	/// <param name="code">A short string identifying the symbol to be updated</param>
+	/// <param name="symbolDto">DTO object with modified symbol</param>
+	/// <returns>The updated symbol or null if the specified symbol wasn't found</returns>
+	public SymbolDto? UpdateSymbol(string code, SymbolDto symbolDto)
+	{
+		SymbolDto? tmp = GetSymbolByCode(code);
+		if (tmp is null)
+			return null;
+
+		return UpdateSymbol(tmp.Id, symbolDto);
+	}
+
+
+	/// <summary>
 	/// Adds a symbol.
 	/// </summary>
 	/// <param name="code">A short string identifying the symbol</param>

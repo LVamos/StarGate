@@ -18,10 +18,10 @@ public class SymbolsController : ControllerBase
 	/// <param name="id">Id of the symbol to be updated</param>
 	/// <param name="symbol">DTO object with modified symbol</param>
 	/// <returns>IActionResult</returns>
-	[HttpPut("symbols/{id}")]
-	public IActionResult EditSymbol(int id, [FromBody] SymbolDto symbol)
+	[HttpPut("symbols")]
+	public IActionResult EditSymbol(string code, [FromBody] SymbolDto symbol)
 	{
-		SymbolDto? updatedSymbol = _symbolManager.UpdateSymbol(id, symbol);
+		SymbolDto? updatedSymbol = _symbolManager.UpdateSymbol(code, symbol);
 
 		if (updatedSymbol is null)
 			return NotFound();
