@@ -102,6 +102,7 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
 
 		try
 		{
+			_dbSet.Attach(entity);
 			_dbSet.Remove(entity);
 			_dbContext.SaveChanges();
 		}

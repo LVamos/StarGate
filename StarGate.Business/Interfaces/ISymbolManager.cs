@@ -32,6 +32,7 @@ public interface ISymbolManager
 	/// <param name="id">Id of the symbol to be deleted</param>
 	/// <returns>True if the specified symbol was deleted</returns>
 	bool DeleteSymbol(int id);
+	bool DeleteSymbol(string code);
 
 	/// <summary>
 	///  Returns all symbols.

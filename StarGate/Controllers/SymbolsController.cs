@@ -50,15 +50,15 @@ public class SymbolsController : ControllerBase
 	/// <summary>
 	///  Deletes a symbol.
 	/// </summary>
-	/// <param name="id">Id of the symbol to be deleted</param>
+	/// <param name="code">A short string identifying the symbol to be deleted</param>
 	/// <returns>IActionResult</returns>
-	[HttpDelete("symbols/{id}")]
-	public IActionResult DeleteSymbol(int id)
+	[HttpDelete("symbols")]
+	public IActionResult DeleteSymbol(string code)
 	{
-		if (_symbolManager.DeleteSymbol(id))
+		if (_symbolManager.DeleteSymbol(code))
 			return Ok();
 
-		return NotFound();
+		return Problem(title: "Error", detail: "Unable to delete the symbol", statusCode: 500);
 	}
 
 	/// <summary>
