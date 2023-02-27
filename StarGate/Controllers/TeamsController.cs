@@ -73,10 +73,10 @@ public class TeamsController : ControllerBase
 	/// </summary>
 	/// <param name="id"></param>
 	/// <returns>IActionResult</returns>
-	[HttpGet("teams/{id}")]
-	public IActionResult GetTeam(int id)
+	[HttpGet("teams/{code}")]
+	public IActionResult GetTeam(string code)
 	{
-		TeamDto? team = _teamManager.GetTeam(id);
+		TeamDto? team = _teamManager.GetTeamByCode(code);
 
 		return team is null ? NotFound() : Ok(team);
 	}
