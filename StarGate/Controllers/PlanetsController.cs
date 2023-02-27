@@ -2,7 +2,6 @@
 
 using StarGate.Business.Interfaces;
 using StarGate.Business.Models;
-using StarGate.Data;
 using StarGate.Data.Models;
 
 namespace StarGate.Controllers;
@@ -78,12 +77,12 @@ public class PlanetsController : ControllerBase
 	/// <summary>
 	///  Gets a planet.
 	/// </summary>
-	/// <param name="id"></param>
+	/// <param name="code">A short string identifying the planet</param>
 	/// <returns>IActionResult</returns>
-	[HttpGet("planets/{id}")]
-	public IActionResult GetPlanet(int id)
+	[HttpGet("planets/{code}")]
+	public IActionResult GetPlanet(string code)
 	{
-		PlanetDto? planet = _planetManager.GetPlanet(id);
+		PlanetDto? planet = _planetManager.GetPlanetByCode(code);
 
 		return planet is null ? NotFound() : Ok(planet);
 	}
@@ -94,11 +93,6 @@ public class PlanetsController : ControllerBase
 	/// <returns>ienumeration of planets</returns>
 	[HttpGet("planets")]
 	public IEnumerable<PlanetDto> GetPlanets() => _planetManager.GetAllPlanets();
-
-	/// <summary>
-	/// Current database context
-	/// </summary>
-	private readonly StarGateDbContext _context;
 
 	/// <summary>
 	///  A planet manager.
@@ -124,9 +118,8 @@ public class PlanetsController : ControllerBase
 	/// Constructor
 	/// </summary>
 	/// <param name="planetManager">A planet manager</param>
-	public PlanetsController(StarGateDbContext context, IPlanetManager planetManager, IAddressManager addressManager, ISymbolManager symbolManager, ITeamManager teamManager)
+	public PlanetsController(IPlanetManager planetManager, IAddressManager addressManager, ISymbolManager symbolManager, ITeamManager teamManager)
 	{
-		_context = context;
 		_planetManager = planetManager;
 		_addressManager = addressManager;
 		_teamManager = teamManager;
