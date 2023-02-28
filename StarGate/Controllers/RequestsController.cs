@@ -14,39 +14,6 @@ namespace StarGate.Controllers;
 public class RequestsController : ControllerBase
 {
 	/// <summary>
-	/// Updates a request.
-	/// </summary>
-	/// <param name="code">A short string identifying the request</param>
-	/// <param name="type">Type of the request</param>
-	/// <param name="planetCode">Code of the target planet</param>
-	/// <returns>IActionResult</returns>
-	[HttpPut("requests")]
-	public IActionResult EditRequest(string code, RequestType type, string planetCode = "")
-	{
-		RequestDto? updatedRequest = _requestManager.UpdateRequest(code, type, planetCode);
-
-		if (updatedRequest is null)
-			return Problem(title: "Error", detail: "The request could not be updated.", statusCode: 500);
-
-		return Ok(updatedRequest);
-	}
-
-
-	/// <summary>
-	///  Deletes a request.
-	/// </summary>
-	/// <param name="code">A short string identifying the request to be deleted</param>
-	/// <returns>IActionResult</returns>
-	[HttpDelete("requests")]
-	public IActionResult DeleteRequest(string code)
-	{
-		if (_requestManager.DeleteRequest(code))
-			return Ok();
-
-		return Problem(title: "Error", detail: "Unable to delete the request", statusCode: 500);
-	}
-
-	/// <summary>
 	/// Adds a request into the queue.
 	/// </summary>
 	/// <param name="code">A short string identifying the request</param>
@@ -62,7 +29,7 @@ public class RequestsController : ControllerBase
 		if (request is null)
 			return Problem(title: "Error", detail: "The request could not be added.", statusCode: 500);
 
-		return CreatedAtAction(nameof(GetRequest), new { code = request.Code }, request);
+		return CreatedAtAction(nameof(GetRequests), new { code = request.Code }, request);
 	}
 
 
@@ -77,22 +44,6 @@ public class RequestsController : ControllerBase
 	/// A request manager.
 	/// </summary>
 	private IRequestManager _requestManager;
-
-	/// <summary>
-	///  Gets a request.
-	/// </summary>
-	/// <param name="id"></param>
-	/// <returns>IActionResult</returns>
-	[HttpGet("requests/{code}")]
-	public IActionResult GetRequest(string code)
-	{
-		RequestDto? request = _requestManager.GetRequestByCode(code);
-
-		if (request is null)
-			return Problem(title: "Error", detail: "Request with such code isn't in the database.", statusCode: 404);
-
-		return Ok();
-	}
 
 	/// <summary>
 	/// Constructor
