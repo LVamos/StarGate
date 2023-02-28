@@ -137,7 +137,7 @@ namespace StarGate.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Type = table.Column<int>(type: "int", nullable: false),
                     Code = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
-                    PlanetId = table.Column<int>(type: "int", nullable: false)
+                    PlanetId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -146,8 +146,7 @@ namespace StarGate.Data.Migrations
                         name: "FK_Request_Planet_PlanetId",
                         column: x => x.PlanetId,
                         principalTable: "Planet",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(

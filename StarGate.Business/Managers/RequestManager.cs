@@ -13,6 +13,55 @@ namespace StarGate.Business.Managers;
 public class RequestManager : IRequestManager
 {
 	/// <summary>
+	///  Adds a request.
+	/// </summary>
+	/// <param name="requestDto">The request to be added as an DTO object</param>
+	/// <returns>Newly added request as an DTO object</returns>
+	public RequestDto AddRequest(RequestDto requestDto)
+	{
+		Request request = _mapper.Map<Request>(requestDto);
+		Request newRequest = _requestRepository.Insert(request);
+
+		return _mapper.Map<RequestDto>(newRequest);
+	}
+
+	/// <summary>
+	/// A planet manager.
+	/// </summary>
+	private IPlanetManager _planetManager;
+
+	/// <summary>
+	/// Adds a request.
+	/// </summary>
+	/// <param name="code">A short string identifying the request</param>
+	/// <param name="type">Type of the request</param>
+	/// <param name="planetCode">Code of a planet to be explored</param>
+	/// <returns>A DTO object storing the newly added request</returns>
+	public RequestDto? AddRequest(string code, RequestType type, string planetCode = "")
+	{
+		// get the planet.
+		PlanetDto? planet = null;
+		if (!string.IsNullOrEmpty(planetCode))
+		{
+			planet = _planetManager.GetPlanetByCode(planetCode);
+
+			if (planet == null)
+				return null;
+		}
+
+		// Store the request.
+		RequestDto request = new RequestDto
+		{
+			Code = code,
+			Type = type,
+			PlanetId = planet is null ? null : planet.Id,
+		};
+
+		return AddRequest(request);
+	}
+
+
+	/// <summary>
 	///  Returns all requests.
 	/// </summary>
 	/// <returns>A list of requests</returns>
@@ -43,9 +92,10 @@ public class RequestManager : IRequestManager
 	/// </summary>
 	/// <param name="requestRepository">The request repository</param>
 	/// <param name="mapper">The mapper</param>
-	public RequestManager(IRequestRepository requestRepository, IMapper mapper)
+	public RequestManager(IRequestRepository requestRepository, IPlanetManager planetManager, IMapper mapper)
 	{
 		_requestRepository = requestRepository;
+		_planetManager = planetManager;
 		_mapper = mapper;
 	}
 

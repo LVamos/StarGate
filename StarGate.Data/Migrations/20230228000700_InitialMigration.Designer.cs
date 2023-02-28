@@ -12,7 +12,7 @@ using StarGate.Data;
 namespace StarGate.Data.Migrations
 {
     [DbContext(typeof(StarGateDbContext))]
-    [Migration("20230227221343_InitialMigration")]
+    [Migration("20230228000700_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -130,7 +130,7 @@ namespace StarGate.Data.Migrations
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
-                    b.Property<int>("PlanetId")
+                    b.Property<int?>("PlanetId")
                         .HasColumnType("int");
 
                     b.Property<int>("Type")
@@ -290,9 +290,7 @@ namespace StarGate.Data.Migrations
                 {
                     b.HasOne("StarGate.Data.Models.Planet", "Planet")
                         .WithMany()
-                        .HasForeignKey("PlanetId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("PlanetId");
 
                     b.Navigation("Planet");
                 });

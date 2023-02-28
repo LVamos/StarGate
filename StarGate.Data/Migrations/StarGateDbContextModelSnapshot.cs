@@ -128,7 +128,7 @@ namespace StarGate.Data.Migrations
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
-                    b.Property<int>("PlanetId")
+                    b.Property<int?>("PlanetId")
                         .HasColumnType("int");
 
                     b.Property<int>("Type")
@@ -288,9 +288,7 @@ namespace StarGate.Data.Migrations
                 {
                     b.HasOne("StarGate.Data.Models.Planet", "Planet")
                         .WithMany()
-                        .HasForeignKey("PlanetId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("PlanetId");
 
                     b.Navigation("Planet");
                 });

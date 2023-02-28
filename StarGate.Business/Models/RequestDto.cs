@@ -23,6 +23,11 @@ public class RequestDto
 	public RequestType Type { get; set; }
 
 	/// <summary>
+	/// A planet to be explored
+	/// </summary>
+	public int? PlanetId { get; set; }
+
+	/// <summary>
 	/// A planet to be explored.
 	/// </summary>
 	public PlanetDto Planet { get; set; }

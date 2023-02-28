@@ -43,7 +43,7 @@ public class Request
 	/// <summary>
 	/// A foreign key referencing to a planet.
 	/// </summary>
-	public int PlanetId { get; set; }
+	public int? PlanetId { get; set; }
 
 	/// <summary>
 	/// A planet to be explored.

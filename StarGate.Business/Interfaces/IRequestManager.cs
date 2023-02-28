@@ -1,4 +1,5 @@
 ﻿using StarGate.Business.Models;
+using StarGate.Data.Models;
 
 namespace StarGate.Business.Interfaces;
 
@@ -7,6 +8,23 @@ namespace StarGate.Business.Interfaces;
 /// </summary>
 public interface IRequestManager
 {
+	/// <summary>
+	/// Adds a request.
+	/// </summary>
+	/// <param name="code">A short string identifying the request</param>
+	/// <param name="type">Type of the request</param>
+	/// <param name="planetCode">Code of a planet to be explored</param>
+	/// <returns>A DTO object storing the newly added request</returns>
+	RequestDto? AddRequest(string code, RequestType type, string planetCode = "");
+
+
+	/// <summary>
+	///  Adds a request.
+	/// </summary>
+	/// <param name="requestDto">The request to be added as an DTO object</param>
+	/// <returns>Newly added request as an DTO object</returns>
+	RequestDto AddRequest(RequestDto requestDto);
+
 	/// <summary>
 	///  Returns all requests.
 	/// </summary>
