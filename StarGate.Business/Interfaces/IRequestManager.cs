@@ -51,4 +51,21 @@ public interface IRequestManager
 	/// <param name="code">A code string identifying the request</param>
 	/// <returns>DTO object of the wanted request or null</returns>
 	RequestDto? GetRequestByCode(string code);
+
+	/// <summary>
+	/// Updates a request.
+	/// </summary>
+	/// <param name="code">A short string identifying the request to be updated</param>
+	/// <param name="type">Type of the request</param>
+	/// <param name="planetCode">Code of the target planet </param>
+	/// <returns>The updated request as a DTO or null if the specified request wasn't found</returns>
+	RequestDto? UpdateRequest(string code, RequestType type, string planetCode = "");
+
+	/// <summary>
+	/// Updates a request.
+	/// </summary>
+	/// <param name="id">Id of the request to be updated</param>
+	/// <param name="requestDto">DTO object with modified request</param>
+	/// <returns>The updated request as DTO or null if the specified request wasn't found</returns>
+	RequestDto? UpdateRequest(int id, RequestDto requestDto);
 }

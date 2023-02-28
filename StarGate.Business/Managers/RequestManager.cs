@@ -13,6 +13,55 @@ namespace StarGate.Business.Managers;
 public class RequestManager : IRequestManager
 {
 	/// <summary>
+	/// Updates a request.
+	/// </summary>
+	/// <param name="id">Id of the request to be updated</param>
+	/// <param name="requestDto">DTO object with modified request</param>
+	/// <returns>The updated request as DTO or null if the specified request wasn't found</returns>
+	public RequestDto? UpdateRequest(int id, RequestDto requestDto)
+	{
+		Request request = _mapper.Map<Request>(requestDto);
+		Request updatedRequest = _requestRepository.Update(request);
+
+		return _mapper.Map<RequestDto>(updatedRequest);
+	}
+
+	/// <summary>
+	/// Updates a request.
+	/// </summary>
+	/// <param name="code">A short string identifying the request to be updated</param>
+	/// <param name="type">Type of the request</param>
+	/// <param name="planetCode">Code of the target planet </param>
+	/// <returns>The updated request as a DTO or null if the specified request wasn't found</returns>
+	public RequestDto? UpdateRequest(string code, RequestType type, string planetCode = "")
+	{
+		// Find the request to modify.
+		RequestDto? requestDto = GetRequestByCode(code);
+		if (requestDto is null)
+			return null;
+
+		// Make validation.
+		if (type != RequestType.Open && !string.IsNullOrEmpty(planetCode))
+			return null;
+
+		// If the request is a diagnostics request, the planet id should be null.
+		if (type == RequestType.Diagnostics)
+			requestDto.PlanetId = null;
+		else
+		{
+			// Check if the planet exists.
+			PlanetDto? planet = _planetManager.GetPlanetByCode(planetCode);
+			if (planet is null)
+				return null;
+			requestDto.PlanetId = planet.Id;
+		}
+
+		requestDto.Type = type;
+		return UpdateRequest(requestDto.Id, requestDto);
+	}
+
+
+	/// <summary>
 	/// Deletes a request.
 	/// </summary>
 	/// <param name="code">A short string identifying the request</param>

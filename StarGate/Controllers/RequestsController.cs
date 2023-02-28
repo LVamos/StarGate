@@ -14,6 +14,25 @@ namespace StarGate.Controllers;
 public class RequestsController : ControllerBase
 {
 	/// <summary>
+	/// Updates a request.
+	/// </summary>
+	/// <param name="code">A short string identifying the request</param>
+	/// <param name="type">Type of the request</param>
+	/// <param name="planetCode">Code of the target planet</param>
+	/// <returns>IActionResult</returns>
+	[HttpPut("requests")]
+	public IActionResult EditRequest(string code, RequestType type, string planetCode = "")
+	{
+		RequestDto? updatedRequest = _requestManager.UpdateRequest(code, type, planetCode);
+
+		if (updatedRequest is null)
+			return Problem(title: "Error", detail: "The request could not be updated.", statusCode: 500);
+
+		return Ok(updatedRequest);
+	}
+
+
+	/// <summary>
 	///  Deletes a request.
 	/// </summary>
 	/// <param name="code">A short string identifying the request to be deleted</param>

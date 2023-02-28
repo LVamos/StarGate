@@ -45,6 +45,11 @@ public class PlanetRepository : BaseRepository<Planet>, IPlanetRepository
 		return true;
 	}
 
+	/// <summary>
+	/// Updates a record in the repository.
+	/// </summary>
+	/// <param name="entity">The modified record</param>
+	/// <returns>The modified record</returns>
 	public override Planet Update(Planet entity)
 	{
 		Planet? entry = FindById(entity.Id);
