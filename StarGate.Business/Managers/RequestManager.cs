@@ -13,6 +13,28 @@ namespace StarGate.Business.Managers;
 public class RequestManager : IRequestManager
 {
 	/// <summary>
+	/// Deletes a request.
+	/// </summary>
+	/// <param name="code">A short string identifying the request</param>
+	/// <returns>True if the request was deleted</returns>
+	public bool DeleteRequest(string code)
+	{
+		RequestDto request = GetRequestByCode(code);
+		if (request is null)
+			return false;
+
+		try
+		{
+			_requestRepository.Delete(request.Id);
+		}
+		catch
+		{
+			return false;
+		}
+		return true;
+	}
+
+	/// <summary>
 	///  Adds a request.
 	/// </summary>
 	/// <param name="requestDto">The request to be added as an DTO object</param>

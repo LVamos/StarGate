@@ -14,6 +14,20 @@ namespace StarGate.Controllers;
 public class RequestsController : ControllerBase
 {
 	/// <summary>
+	///  Deletes a request.
+	/// </summary>
+	/// <param name="code">A short string identifying the request to be deleted</param>
+	/// <returns>IActionResult</returns>
+	[HttpDelete("requests")]
+	public IActionResult DeleteRequest(string code)
+	{
+		if (_requestManager.DeleteRequest(code))
+			return Ok();
+
+		return Problem(title: "Error", detail: "Unable to delete the request", statusCode: 500);
+	}
+
+	/// <summary>
 	/// Adds a request into the queue.
 	/// </summary>
 	/// <param name="code">A short string identifying the request</param>

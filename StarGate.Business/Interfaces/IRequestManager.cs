@@ -26,6 +26,13 @@ public interface IRequestManager
 	RequestDto AddRequest(RequestDto requestDto);
 
 	/// <summary>
+	/// Deletes a request.
+	/// </summary>
+	/// <param name="code">A short string identifying the request</param>
+	/// <returns>True if the request was deleted</returns>
+	bool DeleteRequest(string code);
+
+	/// <summary>
 	///  Returns all requests.
 	/// </summary>
 	/// <returns>A list of requests</returns>
