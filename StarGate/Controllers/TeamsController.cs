@@ -59,7 +59,7 @@ public class TeamsController : ControllerBase
 		if (team is null)
 			return Problem(title: "Error", detail: "The team could not be added.", statusCode: 500);
 
-		return CreatedAtAction(nameof(GetTeam), new { Id = newTeam.Id }, newTeam);
+		return CreatedAtAction(nameof(GetTeam), new { Code = newTeam.Code }, newTeam);
 	}
 
 	/// <summary>

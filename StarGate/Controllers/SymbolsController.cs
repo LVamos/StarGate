@@ -44,7 +44,7 @@ public class SymbolsController : ControllerBase
 		if (symbol is null)
 			return Problem(title: "Error", detail: "The symbol could not be added.", statusCode: 500);
 
-		return CreatedAtAction(nameof(GetSymbol), new { Id = symbol.Id }, symbol);
+		return CreatedAtAction(nameof(GetSymbol), new { Code = symbol.Code }, symbol);
 	}
 
 	/// <summary>

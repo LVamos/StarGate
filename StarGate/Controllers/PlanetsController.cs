@@ -56,7 +56,7 @@ public class PlanetsController : ControllerBase
 
 		return CreatedAtAction(nameof(GetPlanet), new
 		{
-			Id = planet.Id
+			Code = planet.Code
 		}, planet);
 	}
 
