@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StarGate.Data", "StarGate.D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StarGate.Business", "StarGate.Business\StarGate.Business.csproj", "{73BCF6EB-401E-475E-91B5-44994E35E3D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StargateTests", "StargateTests\StargateTests.csproj", "{393B2B8C-99EE-48D9-9376-BF7C8B5B80ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StargateTests", "StargateTests\StargateTests.csproj", "{393B2B8C-99EE-48D9-9376-BF7C8B5B80ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StarGate.Client", "StarGate.Client\StarGate.Client.csproj", "{5FD53E52-7398-4B23-8A29-F4BD54180C67}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{393B2B8C-99EE-48D9-9376-BF7C8B5B80ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{393B2B8C-99EE-48D9-9376-BF7C8B5B80ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{393B2B8C-99EE-48D9-9376-BF7C8B5B80ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FD53E52-7398-4B23-8A29-F4BD54180C67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FD53E52-7398-4B23-8A29-F4BD54180C67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FD53E52-7398-4B23-8A29-F4BD54180C67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FD53E52-7398-4B23-8A29-F4BD54180C67}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
