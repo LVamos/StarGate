@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 using StarGate.Business.Interfaces;
 using StarGate.Business.Models;
 using StarGate.Data.Models;
+using StarGate.Hubs;
 
 namespace StarGate.Controllers;
 
@@ -38,16 +40,25 @@ public class RequestsController : ControllerBase
 	/// </summary>
 	/// <returns>ienumeration of requests</returns>
 	[HttpGet("requests")]
-	public IEnumerable<RequestDto> GetRequests() => _requestManager.GetAllRequests();
+	public IEnumerable<RequestDto> GetRequests()
+	{
+		_hubContext.Clients.All.SendAsync("ReceiveMessage", "Test", "Testovací lofof");
+		return _requestManager.GetAllRequests();
+	}
 
 	/// <summary>
 	/// A request manager.
 	/// </summary>
 	private IRequestManager _requestManager;
+	private IHubContext<RequestQueueHub> _hubContext;
 
 	/// <summary>
 	/// Constructor
 	/// </summary>
 	/// <param name="requestManager">A request manager</param>
-	public RequestsController(IRequestManager requestManager) => _requestManager = requestManager;
+	public RequestsController(IRequestManager requestManager, IHubContext<RequestQueueHub> hubContext)
+	{
+		_requestManager = requestManager;
+		_hubContext = hubContext;
+	}
 }

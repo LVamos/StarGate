@@ -9,6 +9,7 @@ void Terminate(string message = "")
 	Environment.Exit(0);
 }
 
+// A callback method for receiving messages from the server.
 static void ReceiveMessage(string title, string message) => Console.WriteLine($"{title}: {message}");
 
 // Establish SignalR connection
@@ -16,16 +17,15 @@ HubConnection connection = new HubConnectionBuilder()
 	.WithUrl("https://localhost:7230/RequestQueueHub")
 	.Build();
 
+// Set up callback.
 connection.Closed += async (error) => Terminate(error.Message);
 
 connection.On<string, string>("ReceiveMessage", ReceiveMessage);
-
 
 Console.WriteLine("Establishing connection");
 try
 {
 	await connection.StartAsync();
-
 }
 catch
 {
@@ -36,6 +36,7 @@ Console.WriteLine("Listening to the server. Press any key to stop.");
 while (true)
 {
 	await Task.Delay(10);
+
 	if (Console.ReadKey().Key == ConsoleKey.Enter)
 	{
 		connection.StopAsync();

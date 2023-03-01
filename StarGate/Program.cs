@@ -8,6 +8,7 @@ using StarGate.Business.Managers;
 using StarGate.Data;
 using StarGate.Data.Interfaces;
 using StarGate.Data.Repositories;
+using StarGate.Hubs;
 
 using System.Text.Json.Serialization;
 
