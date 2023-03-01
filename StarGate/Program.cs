@@ -8,10 +8,12 @@ using StarGate.Business.Managers;
 using StarGate.Data;
 using StarGate.Data.Interfaces;
 using StarGate.Data.Repositories;
+using StarGate.Hubs;
 
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddSignalR();
 builder.Services.AddAutoMapper(typeof(AutomapperConfigurationProfile));
 
 // Repositories and managers
@@ -62,5 +64,6 @@ app.UseSwaggerUI(o =>
 
 app.MapControllers();
 app.MapGet("/", () => "Hello World!");
+app.MapHub<RequestQueueHub>("/RequestQueueHub");
 
 app.Run();
