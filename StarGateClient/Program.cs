@@ -39,7 +39,7 @@ while (true)
 
 	if (Console.ReadKey().Key == ConsoleKey.Enter)
 	{
-		connection.StopAsync();
+		await connection.StopAsync();
 		Terminate("Connection ended.");
 		break;
 	}

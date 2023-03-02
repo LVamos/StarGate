@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.OpenApi.Models;
 
+using StarGate;
 using StarGate.Business;
 using StarGate.Business.Interfaces;
 using StarGate.Business.Managers;
@@ -16,7 +17,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSignalR();
 builder.Services.AddCors();
 builder.Services.AddAutoMapper(typeof(AutomapperConfigurationProfile));
-
 // Repositories and managers
 builder.Services.AddScoped<IRequestRepository, RequestRepository>();
 builder.Services.AddScoped<IRequestManager, RequestManager>();
@@ -51,6 +51,9 @@ builder.Services.AddSwaggerGen(
 		Title = "Hvìzdná brána",
 		Description = "Webové API pro ovládání hvìzdné brány"
 	}));
+
+builder.Services.AddHostedService<RequestQueueService>();
+
 
 builder.Services.AddControllers(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true)
 	.AddJsonOptions(o => o.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
